@@ -1,0 +1,26 @@
+name: VoLoAlert — Controllo Prezzi Voli
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Ogni 6 ore (00:00, 06:00, 12:00, 18:00)
+  workflow_dispatch:         # Permette esecuzione manuale
+
+jobs:
+  check-prices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🔍 Controlla prezzi voli
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: node check-prices.js
