@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -588,7 +589,7 @@ const TELEGRAM_CHAT_ID = "IL_TUO_CHAT_ID_QUI";
 const GF_KEYWORDS = [
   "google flights",
   "price change",
-  "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4927263b2c392530092e26262e252c672a2624">[email&#160;protected]</a>",
+  "noreply@google.com",
   "prices for your trip",
   "prezzi per il tuo viaggio",
   "flight price alert"
@@ -602,7 +603,7 @@ function checkFlightEmails() {
 
   // Cerca email non lette da Google Flights
   const threads = GmailApp.search(
-    'from:(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a0405180f1a06132a0d05050d060f44090507">[email&#160;protected]</a> OR <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9dfbf1f4faf5e9eeb0f3f2eff8edf1e4ddfaf2f2faf1f8b3fef2f0">[email&#160;protected]</a>) ' +
+    'from:(noreply@google.com OR flights-noreply@google.com) ' +
     'subject:(price OR prezzo OR flight OR volo) ' +
     'is:unread',
     0, 20
@@ -802,7 +803,7 @@ jobs:
   <span id="t-msg">OK</span>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ═══════════════════════════════════════════════
 // STARS
 // ═══════════════════════════════════════════════
@@ -1367,4 +1368,19 @@ function acSearch(input,dropId){
   drop.innerHTML=res.map(a=>`
     <div class="ac-item" onclick="acSelect('${input.id}','${dropId}','${a.iata}','${a.city}','${a.name}')">
       <div class="ac-flag">${a.flag}</div>
-      <div 
+      <div       <div class="ac-iata">${a.iata}</div>
+      <div class="ac-info">
+        <div class="ac-city">${a.city} — ${a.name}</div>
+        <div class="ac-country">${a.country}</div>
+      </div>
+    </div>`).join('');
+  drop.classList.add('show');
+}
+function acSelect(inputId,dropId,iata,city,name){
+  document.getElementById(inputId).value=`${city} (${iata})`;
+  acHide(dropId);
+}
+function acHide(dropId){document.getElementById(dropId).classList.remove('show');}
+</script>
+</body>
+</html>
