@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✈ VoLoAlert</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#07101f;--card:#0d1829;--card2:#111f35;
+  --border:rgba(99,179,237,0.13);--accent:#38bdf8;--accent2:#818cf8;
+  --gold:#fbbf24;--text:#e2e8f0;--muted:#566a84;
+  --success:#34d399;--danger:#f87171;--warn:#fb923c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--sky);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 5%,rgba(56,189,248,0.06) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 90%,rgba(129,140,248,0.06) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,rgba(251,191,36,0.02) 0%,transparent 60%);
+  pointer-events:none;}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.star{position:absolute;border-radius:50%;background:#fff;opacity:0;animation:twinkle var(--d,4s) var(--delay,0s) infinite;}
+@keyframes twinkle{0%,100%{opacity:0}50%{opacity:var(--op,.5)}}
+.plane-trail{position:fixed;top:18%;left:-80px;z-index:0;font-size:1.4rem;animation:flyby 18s linear infinite;opacity:0.18;pointer-events:none;}
+@keyframes flyby{0%{left:-80px;top:18%}100%{left:110%;top:14%}}
+
+header{position:relative;z-index:10;padding:18px 22px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:4px;color:var(--accent);text-shadow:0 0 30px rgba(56,189,248,0.35);}
+.logo span{color:var(--gold);}
+.htag{font-size:.68rem;color:var(--muted);background:rgba(255,255,255,0.03);border:1px solid var(--border);padding:4px 12px;border-radius:20px;letter-spacing:.5px;}
+.tg-status{display:flex;align-items:center;gap:7px;font-size:.75rem;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:rgba(255,255,255,0.03);cursor:pointer;transition:.2s;}
+.tg-status:hover{border-color:var(--accent);}
+.tg-status .sdot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;}
+.tg-status.connected .sdot{background:var(--success);box-shadow:0 0 6px var(--success);animation:pulse 2s infinite;}
+.serp-badge{display:flex;align-items:center;gap:6px;font-size:.72rem;padding:5px 11px;border-radius:20px;border:1px solid rgba(251,191,36,0.25);background:rgba(251,191,36,0.05);color:var(--gold);}
+.serp-badge .sdot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;}
+.serp-badge.active .sdot{background:var(--gold);box-shadow:0 0 6px var(--gold);}
+
+main{position:relative;z-index:10;max-width:800px;margin:0 auto;padding:18px 14px 100px;}
+.hero{text-align:center;padding:20px 0 24px;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,7vw,3.6rem);line-height:1;letter-spacing:2px;}
+.hero .l1{color:var(--text);}
+.hero .l2{color:var(--accent);text-shadow:0 0 40px rgba(56,189,248,0.4);}
+.hero p{color:var(--muted);font-size:.88rem;margin-top:8px;}
+
+.nav{display:flex;gap:5px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:5px;margin-bottom:18px;}
+.ntb{flex:1;padding:10px 6px;border:none;cursor:pointer;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;background:transparent;color:var(--muted);transition:.2s;white-space:nowrap;}
+.ntb.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 20px rgba(56,189,248,0.2);}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:16px;}
+.card.gold-border{border-color:rgba(251,191,36,0.22);background:linear-gradient(135deg,rgba(251,191,36,0.04),rgba(56,189,248,0.02));}
+.card.green-border{border-color:rgba(52,211,153,0.22);background:rgba(52,211,153,0.02);}
+.card.danger-border{border-color:rgba(248,113,113,0.22);}
+.card.purple-border{border-color:rgba(129,140,248,0.3);background:rgba(129,140,248,0.03);}
+.ctitle{font-size:.67rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.ctitle.gold{color:var(--gold);}
+.ctitle.green{color:var(--success);}
+.ctitle.purple{color:var(--accent2);}
+
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:.68rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);}
+.fi{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:11px;padding:11px 13px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.92rem;outline:none;transition:.2s;width:100%;}
+.fi:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,0.08);background:rgba(56,189,248,0.03);}
+.fi::placeholder{color:var(--muted);}
+select.fi option{background:#131e38;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.g3t{display:grid;grid-template-columns:1fr 44px 1fr;gap:10px;align-items:end;}
+
+.price-wrap{position:relative;}
+.price-wrap .csym{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gold);font-weight:700;font-size:1.1rem;z-index:1;pointer-events:none;}
+.price-wrap .fi{padding-left:34px;font-size:1.3rem;font-weight:700;color:var(--gold);border-color:rgba(251,191,36,0.25);}
+.price-wrap .fi:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(251,191,36,0.08);}
+
+.swap{width:44px;height:44px;background:rgba(56,189,248,0.08);border:1px solid var(--border);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--accent);transition:.3s;flex-shrink:0;}
+.swap:hover{background:rgba(56,189,248,0.18);transform:rotate(180deg);}
+
+.trip-btns{display:flex;gap:7px;margin-bottom:14px;}
+.tbtn{padding:7px 14px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;transition:.2s;}
+.tbtn.active{background:rgba(56,189,248,0.1);border-color:var(--accent);color:var(--accent);}
+
+.tog{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:11px;cursor:pointer;transition:.2s;user-select:none;}
+.tog:hover{border-color:rgba(56,189,248,0.3);}
+.tog.on{border-color:var(--accent);background:rgba(56,189,248,0.05);}
+.tog-lbl{font-size:.82rem;font-weight:500;}
+.dot{width:34px;height:18px;background:var(--muted);border-radius:18px;position:relative;transition:.2s;flex-shrink:0;}
+.dot::after{content:'';position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;}
+.tog.on .dot{background:var(--accent);}
+.tog.on .dot::after{left:19px;}
+
+.btn-primary{width:100%;padding:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:13px;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:3px;color:#fff;box-shadow:0 8px 28px rgba(56,189,248,0.25);transition:.2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(56,189,248,0.35);}
+.btn-primary:active{transform:translateY(0);}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-secondary{padding:9px 16px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:500;color:var(--muted);transition:.2s;}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+.btn-danger{padding:7px 11px;background:rgba(248,113,113,0.07);border:1px solid rgba(248,113,113,0.18);color:var(--danger);border-radius:8px;cursor:pointer;font-size:.73rem;transition:.2s;}
+.btn-danger:hover{background:rgba(248,113,113,0.14);}
+.btn-gold{padding:9px 16px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:600;color:var(--gold);transition:.2s;}
+.btn-gold:hover{background:rgba(251,191,36,0.18);}
+.btn-green{padding:9px 16px;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.25);border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:600;color:var(--success);transition:.2s;}
+.btn-green:hover{background:rgba(52,211,153,0.18);}
+.btn-purple{padding:9px 16px;background:rgba(129,140,248,0.1);border:1px solid rgba(129,140,248,0.25);border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.83rem;font-weight:600;color:var(--accent2);transition:.2s;}
+.btn-purple:hover{background:rgba(129,140,248,0.18);}
+
+.info-bar{background:rgba(56,189,248,0.04);border:1px solid rgba(56,189,248,0.15);border-radius:10px;padding:10px 14px;font-size:.78rem;color:var(--muted);margin-bottom:12px;display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.warn-bar{background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:10px 14px;font-size:.78rem;color:var(--muted);margin-bottom:12px;display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+.ok-bar{background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.25);border-radius:10px;padding:10px 14px;font-size:.78rem;color:var(--success);margin-bottom:12px;display:flex;gap:8px;align-items:center;line-height:1.6;}
+.purple-bar{background:rgba(129,140,248,0.05);border:1px solid rgba(129,140,248,0.25);border-radius:10px;padding:10px 14px;font-size:.78rem;color:var(--accent2);margin-bottom:12px;display:flex;gap:8px;align-items:flex-start;line-height:1.6;}
+
+.aitem{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px;margin-bottom:10px;display:flex;align-items:center;gap:12px;animation:slideIn .3s ease;transition:.2s;}
+.aitem:hover{border-color:rgba(56,189,248,0.25);}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.pdot{width:9px;height:9px;border-radius:50%;background:var(--success);box-shadow:0 0 7px var(--success);flex-shrink:0;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.aroute{flex:1;min-width:0;}
+.rtext{font-weight:600;font-size:.9rem;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.rarr{color:var(--accent);font-size:.75rem;}
+.ameta{font-size:.74rem;color:var(--muted);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;}
+.aprice{text-align:right;flex-shrink:0;}
+.atgt{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--gold);letter-spacing:1px;}
+.albl{font-size:.67rem;color:var(--muted);}
+
+.shdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap;gap:8px;}
+.shdr h2{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;}
+.badge{background:rgba(56,189,248,0.12);color:var(--accent);border-radius:20px;padding:3px 10px;font-size:.72rem;font-weight:700;}
+.badge.green{background:rgba(52,211,153,0.12);color:var(--success);}
+.badge.gold{background:rgba(251,191,36,0.12);color:var(--gold);}
+
+.empty{text-align:center;padding:36px 16px;color:var(--muted);}
+.empty .ei{font-size:2.8rem;margin-bottom:12px;opacity:.4;}
+.empty p{font-size:.86rem;line-height:1.6;}
+
+.monitor-card{background:linear-gradient(135deg,rgba(52,211,153,0.06),rgba(56,189,248,0.03));border:1px solid rgba(52,211,153,0.2);border-radius:16px;padding:16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.monitor-info h4{font-size:.88rem;font-weight:600;margin-bottom:3px;}
+.monitor-info p{font-size:.75rem;color:var(--muted);}
+.monitor-controls{display:flex;align-items:center;gap:8px;}
+.live-dot{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--success);}
+.live-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success);animation:pulse 1.5s infinite;display:block;}
+.countdown{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--accent);letter-spacing:2px;min-width:50px;text-align:right;}
+
+.log{background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:12px;padding:14px;max-height:220px;overflow-y:auto;font-family:monospace;font-size:.75rem;line-height:1.7;}
+.log .log-line{padding:1px 0;}
+.log .log-ok{color:var(--success);}
+.log .log-warn{color:var(--warn);}
+.log .log-err{color:var(--danger);}
+.log .log-info{color:var(--muted);}
+.log .log-found{color:var(--gold);font-weight:bold;}
+
+.step{display:flex;gap:12px;padding:13px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;margin-bottom:9px;}
+.step-num{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#fff;flex-shrink:0;}
+.step-body h4{font-size:.87rem;font-weight:600;margin-bottom:4px;}
+.step-body p{font-size:.78rem;color:var(--muted);line-height:1.6;}
+.step-body code{background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-size:.74rem;color:var(--accent);}
+
+/* CODE BLOCK */
+.code-block{background:rgba(0,0,0,.45);border:1px solid rgba(56,189,248,0.15);border-radius:12px;padding:14px;font-family:monospace;font-size:.72rem;line-height:1.8;color:#a5f3fc;overflow-x:auto;position:relative;margin:10px 0;}
+.code-block .cb-copy{position:absolute;top:8px;right:8px;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);border-radius:7px;padding:4px 10px;color:var(--accent);font-family:'DM Sans',sans-serif;font-size:.7rem;cursor:pointer;transition:.2s;}
+.code-block .cb-copy:hover{background:rgba(56,189,248,0.2);}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(90px);background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:13px 20px;display:flex;align-items:center;gap:10px;font-size:.88rem;font-weight:500;box-shadow:0 12px 40px rgba(0,0,0,.5);z-index:9999;transition:.4s cubic-bezier(.34,1.56,.64,1);min-width:250px;max-width:92vw;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.ok{border-color:var(--success);}
+.toast.err{border-color:var(--danger);}
+.toast.warn{border-color:var(--warn);}
+
+.tsec{display:none;}
+.tsec.active{display:block;}
+.divider{height:1px;background:var(--border);margin:16px 0;}
+
+.notif-item{background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:13px;margin-bottom:9px;animation:slideIn .3s ease;}
+.notif-item .ni-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.notif-item .ni-route{font-weight:600;font-size:.88rem;}
+.notif-item .ni-time{font-size:.7rem;color:var(--muted);}
+.notif-item .ni-price{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);}
+.notif-item .ni-meta{font-size:.75rem;color:var(--muted);margin-top:3px;}
+
+/* METHOD SELECTOR */
+.method-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.mtab{flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;color:var(--muted);transition:.2s;text-align:center;}
+.mtab.active.gold{border-color:var(--gold);color:var(--gold);background:rgba(251,191,36,0.07);}
+.mtab.active.purple{border-color:var(--accent2);color:var(--accent2);background:rgba(129,140,248,0.07);}
+.mtab:hover{border-color:rgba(255,255,255,0.2);}
+.method-content{display:none;}
+.method-content.active{display:block;}
+
+/* QUOTA BAR */
+.quota-bar-wrap{background:rgba(0,0,0,.3);border-radius:8px;height:8px;margin:6px 0 3px;overflow:hidden;}
+.quota-bar{height:100%;background:linear-gradient(90deg,var(--success),var(--gold));border-radius:8px;transition:.6s;}
+.quota-txt{font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;}
+
+/* AC */
+.ac-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#0d1829;border:1px solid rgba(56,189,248,0.3);border-radius:12px;z-index:999;max-height:260px;overflow-y:auto;display:none;box-shadow:0 12px 40px rgba(0,0,0,.6);}
+.ac-dropdown.show{display:block;}
+.ac-item{padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:11px;transition:.15s;border-bottom:1px solid rgba(255,255,255,0.04);}
+.ac-item:last-child{border-bottom:none;}
+.ac-item:hover,.ac-item.focused{background:rgba(56,189,248,0.1);}
+.ac-iata{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--accent);letter-spacing:2px;min-width:38px;}
+.ac-info{flex:1;min-width:0;}
+.ac-city{font-size:.88rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ac-country{font-size:.72rem;color:var(--muted);}
+.ac-flag{font-size:1.1rem;}
+
+.gf-link{display:none;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.1);border-radius:11px;color:var(--muted);font-size:.82rem;text-decoration:none;transition:.2s;margin-top:9px;}
+.gf-link:hover{border-color:var(--accent);color:var(--accent);}
+.gf-link.show{display:flex;}
+
+@media(max-width:520px){
+  .g3{grid-template-columns:1fr;}
+  .g2{grid-template-columns:1fr;}
+  .g3t{grid-template-columns:1fr 38px 1fr;}
+  .ntb{font-size:.75rem;padding:9px 4px;}
+  .method-tabs{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="plane-trail">✈</div>
+
+<header>
+  <div class="logo">Volo<span>Alert</span></div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <div class="serp-badge" id="serp-badge" title="SerpApi — prezzi reali">
+      <div class="sdot"></div>
+      <span id="serp-badge-txt">SerpApi — non configurata</span>
+    </div>
+    <div class="tg-status" id="tg-status" onclick="showTab('settings')" title="Clicca per configurare Telegram">
+      <div class="sdot"></div>
+      <span id="tg-status-txt">Telegram non connesso</span>
+    </div>
+    <div class="htag">✈ Monitoraggio 24/7</div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1><div class="l1">VOLA AL</div><div class="l2">PREZZO GIUSTO</div></h1>
+    <p>Imposta la soglia — ricevi notifica Telegram appena il prezzo scende.</p>
+  </div>
+
+  <div class="nav">
+    <button class="ntb active" onclick="showTab('search')">🔍 Cerca</button>
+    <button class="ntb" onclick="showTab('alerts')">🔔 Alert</button>
+    <button class="ntb" onclick="showTab('monitor')">📡 Monitor</button>
+    <button class="ntb" onclick="showTab('history')">📜 Storico</button>
+    <button class="ntb" onclick="showTab('settings')">⚙️ Setup</button>
+  </div>
+
+  <!-- TAB: CERCA -->
+  <div class="tsec active" id="tab-search">
+    <div class="card">
+      <div class="ctitle">📍 Tratta Aerea</div>
+      <div class="trip-btns">
+        <button class="tbtn active" id="btn-rt" onclick="setTrip('rt')">↔ Andata e Ritorno</button>
+        <button class="tbtn" id="btn-ow" onclick="setTrip('ow')">→ Solo Andata</button>
+      </div>
+      <div class="g3t" style="margin-bottom:13px;">
+        <div class="field" style="position:relative;">
+          <label>🛫 Partenza</label>
+          <input class="fi" type="text" id="s-origin" placeholder="Scrivi città o aeroporto…" autocomplete="off" oninput="acSearch(this,'ac-origin')" onblur="setTimeout(()=>acHide('ac-origin'),180)">
+          <div class="ac-dropdown" id="ac-origin"></div>
+        </div>
+        <button class="swap" onclick="doSwap()">⇄</button>
+        <div class="field" style="position:relative;">
+          <label>🛬 Destinazione</label>
+          <input class="fi" type="text" id="s-dest" placeholder="Scrivi città o aeroporto…" autocomplete="off" oninput="acSearch(this,'ac-dest')" onblur="setTimeout(()=>acHide('ac-dest'),180)">
+          <div class="ac-dropdown" id="ac-dest"></div>
+        </div>
+      </div>
+      <div class="g2" style="margin-bottom:13px;">
+        <div class="field"><label>📅 Data Andata</label><input class="fi" type="date" id="s-dep"></div>
+        <div class="field" id="ret-wrap"><label>📅 Data Ritorno</label><input class="fi" type="date" id="s-ret"></div>
+      </div>
+      <div class="g3" style="margin-bottom:13px;">
+        <div class="field">
+          <label>👥 Passeggeri</label>
+          <select class="fi" id="s-pax">
+            <option>1 adulto</option><option>2 adulti</option><option>3 adulti</option><option>4 adulti</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>💺 Classe</label>
+          <select class="fi" id="s-cabin">
+            <option>Economy</option><option>Premium Economy</option><option>Business</option><option>First Class</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>🌍 Valuta</label>
+          <select class="fi" id="s-cur" onchange="updSym()">
+            <option value="EUR">€ EUR</option><option value="USD">$ USD</option><option value="GBP">£ GBP</option>
+            <option value="CHF">CHF</option><option value="MAD">MAD</option><option value="DZD">DZD</option>
+          </select>
+        </div>
+      </div>
+      <div class="g3">
+        <div class="tog on" id="tog-direct" onclick="tog(this)"><span class="tog-lbl">✈ Diretti</span><div class="dot"></div></div>
+        <div class="tog on" id="tog-escale" onclick="tog(this)"><span class="tog-lbl">🔄 Scalo</span><div class="dot"></div></div>
+        <div class="tog on" id="tog-bag" onclick="tog(this)"><span class="tog-lbl">🧳 Bagagli</span><div class="dot"></div></div>
+      </div>
+    </div>
+
+    <div class="card gold-border">
+      <div class="ctitle gold">🔔 Alert Prezzo — Soglia Massima</div>
+      <div class="field" style="margin-bottom:13px;">
+        <label>💰 Ti avviso se trovo un prezzo INFERIORE a:</label>
+        <div class="price-wrap">
+          <span class="csym" id="csym">€</span>
+          <input class="fi" type="number" id="s-maxprice" placeholder="350" min="1">
+        </div>
+      </div>
+      <div class="g2">
+        <div class="field"><label>📧 Email (opzionale)</label><input class="fi" type="email" id="s-email" placeholder="tua@email.com"></div>
+        <div class="field"><label>📱 Telefono (opzionale)</label><input class="fi" type="tel" id="s-phone" placeholder="+39 333 000 0000"></div>
+      </div>
+      <div class="field" style="margin-top:11px;">
+        <label>📝 Nota (opzionale)</label>
+        <input class="fi" type="text" id="s-note" placeholder="Es: Vacanza estiva, Luna di miele…">
+      </div>
+    </div>
+
+    <div class="warn-bar" id="tg-warn" style="display:none;">
+      ⚠️ <span>Telegram non configurato! <span style="color:var(--gold);cursor:pointer;text-decoration:underline;" onclick="showTab('settings')">Configura ora →</span></span>
+    </div>
+    <div class="ok-bar" id="tg-ok" style="display:none;">
+      ✅ Telegram connesso! Riceverai notifiche sul tuo bot.
+    </div>
+
+    <button class="btn-primary" onclick="createAlert()">🔔 CREA ALERT E APRI GOOGLE FLIGHTS</button>
+    <a class="gf-link" id="gf-link" href="#" target="_blank">🔍 Riapri su Google Flights →</a>
+  </div>
+
+  <!-- TAB: ALERT -->
+  <div class="tsec" id="tab-alerts">
+    <div class="shdr">
+      <h2>I MIEI ALERT</h2>
+      <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;">
+        <span class="badge green" id="alert-cnt">0 attivi</span>
+        <button class="btn-gold" onclick="exportAlerts()">📥 Esporta alerts.json</button>
+        <button class="btn-secondary" onclick="if(confirm('Eliminare tutti gli alert?')){alerts=[];save();renderAlerts();toast('🗑','Tutti eliminati','warn');}">🗑 Tutti</button>
+      </div>
+    </div>
+    <div class="info-bar">
+      ℹ️ <span>Esporta <strong>alerts.json</strong> e caricalo su GitHub per il monitoraggio 24/7. Oppure usa il Monitor qui sotto tenendo la pagina aperta.</span>
+    </div>
+    <div id="alerts-list"></div>
+  </div>
+
+  <!-- TAB: MONITOR -->
+  <div class="tsec" id="tab-monitor">
+    <div class="monitor-card" id="monitor-status-card">
+      <div class="monitor-info">
+        <h4 id="mon-title">⏸ Monitoraggio in pausa</h4>
+        <p id="mon-sub">Clicca "Avvia" per iniziare il controllo automatico</p>
+      </div>
+      <div class="monitor-controls">
+        <span class="live-dot" id="live-indicator" style="display:none;">LIVE</span>
+        <div class="countdown" id="countdown" style="display:none;">--:--</div>
+        <button class="btn-green" id="mon-btn" onclick="toggleMonitor()">▶ Avvia</button>
+      </div>
+    </div>
+
+    <!-- Quota SerpApi -->
+    <div class="card gold-border" id="quota-card">
+      <div class="ctitle gold">📊 Quota SerpApi questo mese</div>
+      <div class="quota-bar-wrap"><div class="quota-bar" id="quota-bar" style="width:0%"></div></div>
+      <div class="quota-txt"><span id="quota-used">0 usate</span><span id="quota-left">100 rimanenti</span></div>
+      <p style="font-size:.75rem;color:var(--muted);margin-top:8px;">Piano gratuito: 100 ricerche/mese. Ogni controllo di un alert = 1 ricerca.</p>
+    </div>
+
+    <div class="info-bar">
+      ℹ️ <span>Il monitor usa <strong>SerpApi</strong> (prezzi reali) se configurata, oppure ti reindirizza a Google Flights per controllo manuale. Tieni questa pagina aperta.</span>
+    </div>
+
+    <div class="card" style="margin-bottom:14px;">
+      <div class="ctitle">⏱ Frequenza Controllo</div>
+      <div class="g3">
+        <div class="tog on" id="freq-30" onclick="setFreq(30,this)"><span class="tog-lbl">Ogni 30 min</span><div class="dot"></div></div>
+        <div class="tog" id="freq-60" onclick="setFreq(60,this)"><span class="tog-lbl">Ogni ora</span><div class="dot"></div></div>
+        <div class="tog" id="freq-120" onclick="setFreq(120,this)"><span class="tog-lbl">Ogni 2 ore</span><div class="dot"></div></div>
+      </div>
+    </div>
+
+    <div class="card green-border">
+      <div class="ctitle green">📱 Test Notifica Telegram</div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:13px;">Invia un messaggio di test per verificare che tutto funzioni.</p>
+      <button class="btn-green" onclick="testTelegram()">📤 Invia Messaggio di Test</button>
+    </div>
+
+    <div class="card">
+      <div class="ctitle" style="justify-content:space-between;">
+        <span>📋 Log Attività</span>
+        <button class="btn-secondary" style="padding:4px 10px;font-size:.7rem;" onclick="clearLog()">Pulisci</button>
+      </div>
+      <div class="log" id="log-box">
+        <div class="log-line log-info">— VoLoAlert pronto. Configura e avvia il monitoraggio. —</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: STORICO -->
+  <div class="tsec" id="tab-history">
+    <div class="shdr">
+      <h2>NOTIFICHE INVIATE</h2>
+      <div style="display:flex;gap:7px;">
+        <span class="badge gold" id="hist-cnt">0</span>
+        <button class="btn-secondary" onclick="if(confirm('Cancellare storico?')){history_log=[];saveHistory();renderHistory();}">Cancella</button>
+      </div>
+    </div>
+    <div id="history-list"></div>
+  </div>
+
+  <!-- TAB: SETTINGS -->
+  <div class="tsec" id="tab-settings">
+
+    <!-- TELEGRAM -->
+    <div class="card gold-border">
+      <div class="ctitle gold">📱 Configurazione Telegram</div>
+      <div class="ok-bar" id="cfg-ok" style="display:none;">✅ Connesso! Bot attivo e pronto.</div>
+      <div class="field" style="margin-bottom:11px;">
+        <label>🤖 Bot Token (da @BotFather)</label>
+        <div style="position:relative;">
+          <input class="fi" type="text" id="cfg-token" placeholder="es: 8003398482:AAEvwGx..." style="padding-right:70px;font-family:monospace;font-size:.8rem;">
+          <button onclick="document.getElementById('cfg-token').value=document.getElementById('cfg-token').value.trim();toast('✂️','Spazi rimossi!','ok');" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);border-radius:6px;padding:3px 8px;color:var(--accent);font-size:.7rem;cursor:pointer;">Trim</button>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label>💬 Chat ID</label>
+        <input class="fi" type="text" id="cfg-chatid" placeholder="es: 8385884724">
+      </div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:1;min-width:140px;" onclick="saveTgConfig()">💾 Salva Configurazione</button>
+        <button class="btn-green" onclick="testTelegram()">📤 Testa Connessione</button>
+      </div>
+    </div>
+
+    <!-- COME OTTENERE IL TOKEN -->
+    <div class="card">
+      <div class="ctitle">🤖 Come ottenere il Token del Bot</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Apri Telegram e cerca @BotFather</h4>
+          <p>Vai su Telegram → cerca <code>@BotFather</code> → clicca "Start"</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Crea un nuovo bot</h4>
+          <p>Scrivi <code>/newbot</code> → dai un nome al bot → scegli username (deve finire in <code>bot</code>)</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Copia il Token</h4>
+          <p>BotFather ti manda un messaggio con il <strong style="color:var(--gold);">Token</strong> (es: <code>1234567890:AAEtE...</code>). Incollalo sopra.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Trova il tuo Chat ID</h4>
+          <p>Scrivi un messaggio al tuo bot, poi vai su:<br><code>https://api.telegram.org/bot[TOKEN]/getUpdates</code><br>Trovi <code>"chat":{"id": XXXXXXXX}</code> — quel numero è il tuo Chat ID.</p>
+        </div>
+      </div>
+      <button class="btn-gold" style="margin-top:4px;" onclick="prefill()">⚡ Ho già Chat ID 8385884724 — Compila automaticamente</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- DUE METODI -->
+    <div class="shdr" style="margin-bottom:10px;">
+      <h2>🚀 METODI DI MONITORAGGIO</h2>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">Scegli uno o entrambi — si possono usare insieme per massima copertura.</p>
+
+    <div class="method-tabs">
+      <button class="mtab active gold" onclick="showMethod('serpapi')">⚡ Metodo A — SerpApi<br><small style="font-weight:400;opacity:.7;">Prezzi reali automatici</small></button>
+      <button class="mtab purple" onclick="showMethod('gmail')">📧 Metodo B — Gmail → Telegram<br><small style="font-weight:400;opacity:.7;">Gratis al 100%, zero server</small></button>
+    </div>
+
+    <!-- METODO A: SERPAPI -->
+    <div class="method-content active" id="method-serpapi">
+      <div class="card gold-border">
+        <div class="ctitle gold">⚡ SerpApi — Prezzi Reali da Google Flights</div>
+
+        <div class="info-bar">
+          ℹ️ <span><strong>Piano gratuito:</strong> 100 ricerche/mese. Con 1 alert, ogni 30 min = ~1.440 ricerche/mese (troppo). <strong>Consiglio:</strong> controlla ogni 6-12 ore per restare nel gratuito.</span>
+        </div>
+
+        <div class="ok-bar" id="serp-ok" style="display:none;">✅ SerpApi configurata! Prezzi reali attivi.</div>
+
+        <div class="field" style="margin-bottom:11px;">
+          <label>🔑 SerpApi Key</label>
+          <input class="fi" type="password" id="cfg-serpapi" placeholder="Incolla la tua API key da serpapi.com">
+        </div>
+
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px;">
+          <button class="btn-primary" style="flex:1;min-width:140px;" onclick="saveSerpApiConfig()">💾 Salva SerpApi Key</button>
+          <button class="btn-gold" onclick="testSerpApi()">🧪 Testa SerpApi</button>
+        </div>
+
+        <div class="divider"></div>
+        <p style="font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:10px;">📋 Come ottenere la chiave gratuita:</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Crea account su SerpApi</h4>
+            <p>Vai su <strong style="color:var(--gold);">serpapi.com</strong> → Sign up → scegli piano <strong>Free</strong> (100 ricerche/mese, no carta di credito)</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Copia la tua API Key</h4>
+            <p>Dashboard → copia la chiave → incollala nel campo sopra → Salva</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Imposta la frequenza giusta</h4>
+            <p>Con 100 ricerche gratis: <strong style="color:var(--gold);">1 alert → controlla ogni 12 ore</strong> (60 ricerche/mese). Vai su Monitor → seleziona "Ogni 2 ore" come minimo.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Avvia il Monitor</h4>
+            <p>Vai su scheda <strong>📡 Monitor</strong> → Avvia. Il sistema controlla i prezzi reali e ti manda notifica Telegram appena il volo scende sotto soglia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- METODO B: GMAIL → TELEGRAM -->
+    <div class="method-content" id="method-gmail">
+      <div class="card purple-border">
+        <div class="ctitle purple">📧 Gmail → Telegram — Gratis al 100%</div>
+
+        <div class="purple-bar">
+          💡 <span><strong>Come funziona:</strong> Google Flights manda email quando il prezzo scende. Un piccolo script (Google Apps Script, gratis) legge quella email e la inoltra istantaneamente al tuo Telegram. Zero server, zero costi.</span>
+        </div>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Crea Alert su Google Flights</h4>
+            <p>Vai su <strong style="color:var(--accent);">google.com/travel/flights</strong> → cerca la tua tratta → clicca l'icona 🔔 "Monitora prezzi". Google ti manderà email quando il prezzo cambia.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Apri Google Apps Script</h4>
+            <p>Vai su <strong style="color:var(--accent);">script.google.com</strong> → Nuovo progetto → Cancella il codice esistente → Incolla il codice qui sotto.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Incolla questo codice (personalizzato per te)</h4>
+            <p>Sostituisci solo <code>TOKEN</code> e <code>CHAT_ID</code> con i tuoi dati Telegram:</p>
+          </div>
+        </div>
+
+        <div class="code-block" id="gas-code-block">
+          <button class="cb-copy" onclick="copyGASCode()">📋 Copia</button>
+          <pre id="gas-code">// ═══════════════════════════════════════════════
+// VoLoAlert — Google Apps Script
+// Inoltra alert Google Flights a Telegram
+// ═══════════════════════════════════════════════
+
+// ⚙️ CONFIGURAZIONE — modifica questi valori:
+const TELEGRAM_TOKEN  = "IL_TUO_TOKEN_QUI";
+const TELEGRAM_CHAT_ID = "IL_TUO_CHAT_ID_QUI";
+
+// Parole chiave per riconoscere email Google Flights
+const GF_KEYWORDS = [
+  "google flights",
+  "price change",
+  "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4927263b2c392530092e26262e252c672a2624">[email&#160;protected]</a>",
+  "prices for your trip",
+  "prezzi per il tuo viaggio",
+  "flight price alert"
+];
+
+// ═══════════════════════════════════════════════
+// FUNZIONE PRINCIPALE — gira ogni 15 minuti
+// ═══════════════════════════════════════════════
+function checkFlightEmails() {
+  const label = getOrCreateLabel("VoLoAlert/Processate");
+
+  // Cerca email non lette da Google Flights
+  const threads = GmailApp.search(
+    'from:(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a0405180f1a06132a0d05050d060f44090507">[email&#160;protected]</a> OR <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9dfbf1f4faf5e9eeb0f3f2eff8edf1e4ddfaf2f2faf1f8b3fef2f0">[email&#160;protected]</a>) ' +
+    'subject:(price OR prezzo OR flight OR volo) ' +
+    'is:unread',
+    0, 20
+  );
+
+  if (threads.length === 0) {
+    console.log("Nessuna email Google Flights da processare.");
+    return;
+  }
+
+  console.log(`Trovate ${threads.length} email da processare.`);
+
+  threads.forEach(thread => {
+    const messages = thread.getMessages();
+    messages.forEach(msg => {
+      if (!msg.isUnread()) return;
+
+      const from    = msg.getFrom();
+      const subject = msg.getSubject();
+      const body    = msg.getPlainBody().substring(0, 800);
+      const date    = msg.getDate().toLocaleString("it-IT");
+
+      console.log(`Processing: ${subject}`);
+
+      // Invia a Telegram
+      const sent = sendToTelegram(
+        `✈️ <b>ALERT GOOGLE FLIGHTS</b>\n\n` +
+        `📧 Da: ${from}\n` +
+        `📋 Oggetto: ${subject}\n` +
+        `⏰ ${date}\n\n` +
+        `📄 <pre>${escapeHtml(body)}</pre>\n\n` +
+        `🔗 <a href="https://www.google.com/travel/flights">Apri Google Flights</a>`
+      );
+
+      if (sent) {
+        msg.markRead();
+        thread.addLabel(label);
+        console.log(`✅ Inoltrato a Telegram: ${subject}`);
+      }
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// INVIA MESSAGGIO TELEGRAM
+// ═══════════════════════════════════════════════
+function sendToTelegram(text) {
+  const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+  const payload = {
+    method: "post",
+    contentType: "application/json",
+    payload: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text: text,
+      parse_mode: "HTML",
+      disable_web_page_preview: false
+    }),
+    muteHttpExceptions: true
+  };
+
+  try {
+    const response = UrlFetchApp.fetch(url, payload);
+    const result = JSON.parse(response.getContentText());
+    if (!result.ok) {
+      console.error("Errore Telegram:", result.description);
+      return false;
+    }
+    return true;
+  } catch (e) {
+    console.error("Errore rete:", e.toString());
+    return false;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// HELPER: crea/recupera label Gmail
+// ═══════════════════════════════════════════════
+function getOrCreateLabel(name) {
+  let label = GmailApp.getUserLabelByName(name);
+  if (!label) label = GmailApp.createLabel(name);
+  return label;
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+// ═══════════════════════════════════════════════
+// TEST — eseguilo una volta per verificare
+// ═══════════════════════════════════════════════
+function testConnection() {
+  const ok = sendToTelegram(
+    "✅ <b>VoLoAlert Google Script funziona!</b>\n\n" +
+    "📧 Lo script è installato correttamente.\n" +
+    "✈️ Riceverai notifiche Telegram ogni volta che\n" +
+    "Google Flights ti manda un'email di alert prezzi.\n\n" +
+    "⏰ Controllo automatico ogni 15 minuti."
+  );
+  if (ok) {
+    console.log("✅ Test riuscito! Controlla Telegram.");
+  } else {
+    console.error("❌ Test fallito. Controlla Token e Chat ID.");
+  }
+}</pre>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Esegui il test</h4>
+            <p>Salva il file (Ctrl+S) → seleziona funzione <code>testConnection</code> → clicca ▶ Esegui → autorizza l'accesso → controlla Telegram. Dovresti ricevere un messaggio di conferma.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h4>Imposta il Trigger automatico</h4>
+            <p>Nel menu a sinistra → ⏰ <strong>Trigger</strong> → Aggiungi trigger → Funzione: <code>checkFlightEmails</code> → Tipo: "Basato sul tempo" → Ogni 15 minuti. Da questo momento funziona 24/7 completamente gratis!</p>
+          </div>
+        </div>
+
+        <div class="ok-bar" style="margin-top:4px;">
+          ✅ Risultato finale: Google Flights manda email → script la legge → Telegram ti notifica entro 15 min. Gratis per sempre.
+        </div>
+
+        <button class="btn-purple" style="width:100%;margin-top:4px;" onclick="copyGASCode()">📋 Copia il codice Apps Script</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- GITHUB 24/7 -->
+    <div class="card">
+      <div class="ctitle">🚀 Bonus: GitHub Actions (SerpApi 24/7)</div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">Per usare SerpApi anche con il telefono spento, esporta gli alert e usa GitHub Actions.</p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body"><h4>Esporta alerts.json</h4><p>Vai su scheda <strong>🔔 Alert</strong> → "Esporta alerts.json"</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body"><h4>Crea repository GitHub privato</h4><p>github.com → New repository → nome: <code>voloalert</code> → Private → carica <code>alerts.json</code></p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body"><h4>Aggiungi Secrets</h4><p>Settings → Secrets → Actions → aggiungi: <code>TELEGRAM_TOKEN</code>, <code>TELEGRAM_CHAT_ID</code>, <code>SERPAPI_KEY</code></p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body"><h4>Crea workflow</h4><p>Crea file <code>.github/workflows/monitor.yml</code> con il pulsante qui sotto.</p></div>
+      </div>
+      <button class="btn-secondary" style="margin-top:4px;" onclick="showGHWorkflow()">📄 Mostra workflow GitHub Actions</button>
+      <div id="gh-workflow-wrap" style="display:none;margin-top:12px;">
+        <div class="code-block">
+          <button class="cb-copy" onclick="copyGHWorkflow()">📋 Copia</button>
+          <pre id="gh-workflow">name: VoLoAlert Monitor
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Ogni 6 ore
+  workflow_dispatch:         # Esecuzione manuale
+
+jobs:
+  check-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install node-fetch
+
+      - name: Check flight prices
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: node check-prices.js</pre>
+        </div>
+        <p style="font-size:.76rem;color:var(--muted);margin-top:8px;">Crea anche <code>check-prices.js</code> nella root del repo — esporta gli alert e usa lo stesso codice SerpApi dell'app.</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="toast" id="toast">
+  <span id="t-ic">✅</span>
+  <span id="t-msg">OK</span>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ═══════════════════════════════════════════════
+// STARS
+// ═══════════════════════════════════════════════
+const se=document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const s=document.createElement('div');s.className='star';
+  const z=Math.random()*2+.5,op=(Math.random()*.4+.1).toFixed(2);
+  s.style.cssText=`width:${z}px;height:${z}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:${Math.random()*5}s;--op:${op};`;
+  se.appendChild(s);
+}
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+const SYMS={EUR:'€',USD:'$',GBP:'£',CHF:'Fr',MAD:'MAD',DZD:'DZD'};
+let alerts=JSON.parse(localStorage.getItem('va_alerts')||'[]');
+let history_log=JSON.parse(localStorage.getItem('va_history')||'[]');
+let cfg=JSON.parse(localStorage.getItem('va_cfg')||'{}');
+let serpQuota=JSON.parse(localStorage.getItem('va_serpquota')||'{"used":0,"month":""}');
+let tripType='rt';
+let monitorActive=false;
+let monitorInterval=null;
+let monitorFreq=30;
+let countdown=0;
+let countdownTimer=null;
+
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+(function init(){
+  const t=new Date();
+  const fmt=d=>d.toISOString().split('T')[0];
+  document.getElementById('s-dep').value=fmt(new Date(t.getTime()+7*864e5));
+  document.getElementById('s-ret').value=fmt(new Date(t.getTime()+14*864e5));
+  if(cfg.token)  document.getElementById('cfg-token').value=cfg.token;
+  if(cfg.chatid) document.getElementById('cfg-chatid').value=cfg.chatid;
+  if(cfg.serpapi)document.getElementById('cfg-serpapi').value=cfg.serpapi;
+  updateTgStatus();
+  updateSerpStatus();
+  updateQuotaDisplay();
+  renderAlerts();
+  renderHistory();
+  checkMonthReset();
+})();
+
+function checkMonthReset(){
+  const now=new Date();
+  const m=`${now.getFullYear()}-${now.getMonth()}`;
+  if(serpQuota.month!==m){serpQuota={used:0,month:m};localStorage.setItem('va_serpquota',JSON.stringify(serpQuota));}
+}
+
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+function showTab(id){
+  document.querySelectorAll('.tsec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.ntb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  const tabs=['search','alerts','monitor','history','settings'];
+  document.querySelectorAll('.ntb')[tabs.indexOf(id)]?.classList.add('active');
+  if(id==='alerts') renderAlerts();
+  if(id==='history') renderHistory();
+  if(id==='search') updateTgWarning();
+  if(id==='monitor') updateQuotaDisplay();
+}
+
+function showMethod(id){
+  document.querySelectorAll('.method-content').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.mtab').forEach(e=>e.classList.remove('active'));
+  document.getElementById('method-'+id).classList.add('active');
+  const idx=id==='serpapi'?0:1;
+  document.querySelectorAll('.mtab')[idx].classList.add('active',''+( id==='serpapi'?'gold':'purple'));
+}
+
+// ═══════════════════════════════════════════════
+// FORM
+// ═══════════════════════════════════════════════
+function setTrip(t){
+  tripType=t;
+  document.getElementById('btn-rt').classList.toggle('active',t==='rt');
+  document.getElementById('btn-ow').classList.toggle('active',t==='ow');
+  const rw=document.getElementById('ret-wrap');
+  rw.style.opacity=t==='rt'?'1':'0.3';
+  rw.style.pointerEvents=t==='rt'?'auto':'none';
+}
+function doSwap(){
+  const o=document.getElementById('s-origin'),d=document.getElementById('s-dest');
+  [o.value,d.value]=[d.value,o.value];
+}
+function tog(el){el.classList.toggle('on');}
+function updSym(){document.getElementById('csym').textContent=SYMS[document.getElementById('s-cur').value]||'';}
+function setFreq(min,el){
+  monitorFreq=min;
+  document.querySelectorAll('#freq-30,#freq-60,#freq-120').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  if(monitorActive){stopMonitor();startMonitor();}
+}
+function prefill(){
+  document.getElementById('cfg-chatid').value='8385884724';
+  toast('✅','Chat ID compilato! Inserisci il Token e salva.','ok');
+}
+function showGHWorkflow(){
+  const w=document.getElementById('gh-workflow-wrap');
+  w.style.display=w.style.display==='none'?'block':'none';
+}
+
+// ═══════════════════════════════════════════════
+// TELEGRAM
+// ═══════════════════════════════════════════════
+function saveTgConfig(){
+  cfg.token=document.getElementById('cfg-token').value.trim().replace(/\s+/g,'');
+  cfg.chatid=document.getElementById('cfg-chatid').value.trim().replace(/\s+/g,'');
+  if(!cfg.token||!cfg.chatid){toast('⚠️','Inserisci Token e Chat ID!','warn');return;}
+  localStorage.setItem('va_cfg',JSON.stringify(cfg));
+  updateTgStatus();updateTgWarning();
+  toast('✅','Configurazione Telegram salvata!','ok');
+}
+
+function saveSerpApiConfig(){
+  cfg.serpapi=document.getElementById('cfg-serpapi').value.trim();
+  if(!cfg.serpapi){toast('⚠️','Inserisci la SerpApi Key!','warn');return;}
+  localStorage.setItem('va_cfg',JSON.stringify(cfg));
+  updateSerpStatus();
+  toast('✅','SerpApi configurata! Prezzi reali attivi.','ok');
+  document.getElementById('serp-ok').style.display='flex';
+}
+
+async function testSerpApi(){
+  if(!cfg.serpapi){toast('⚠️','Prima salva la SerpApi Key!','warn');return;}
+  toast('🧪','Test SerpApi in corso…','ok');
+  log('info','🧪 Test SerpApi: FCO → MXP');
+  const res=await checkWithSerpApi({o:'FCO',d:'MXP',dep:document.getElementById('s-dep').value,tripType:'ow',cur:'EUR',ret:null},cfg.serpapi);
+  if(res){
+    log('ok',`✅ SerpApi funziona! Esempio prezzo: €${res.price} (${res.airline})`);
+    toast('✅',`SerpApi OK! Prezzo esempio: €${res.price}`,'ok');
+  }else{
+    log('err','❌ SerpApi test fallito. Controlla la chiave.');
+    toast('❌','SerpApi test fallito. Chiave errata?','err');
+  }
+}
+
+async function sendTelegram(message){
+  if(!cfg.token||!cfg.chatid){log('err','❌ Telegram non configurato!');return false;}
+  const url=`https://api.telegram.org/bot${cfg.token}/sendMessage`;
+  try{
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:cfg.chatid,text:message,parse_mode:'HTML'})});
+    const d=await r.json();
+    if(d.ok){log('ok','✅ Notifica Telegram inviata!');return true;}
+    else{log('err','❌ Errore Telegram: '+d.description);return false;}
+  }catch(e){log('err','❌ Errore rete: '+e.message);return false;}
+}
+
+async function testTelegram(){
+  if(!cfg.token||!cfg.chatid){toast('⚠️','Prima configura Token e Chat ID!','warn');showTab('settings');return;}
+  toast('📤','Invio messaggio di test…','ok');
+  const now=new Date().toLocaleString('it');
+  const serpStatus=cfg.serpapi?'✅ SerpApi configurata (prezzi reali)':'⚠️ SerpApi non configurata (solo Gmail→Telegram)';
+  const msg=`✅ <b>VoLoAlert funziona!</b>\n\n`+
+    `⚙️ ${serpStatus}\n`+
+    `📅 Test del: ${now}\n\n`+
+    `Riceverai notifiche qui quando un volo scende sotto la tua soglia! ✈️`;
+  const ok=await sendTelegram(msg);
+  if(ok){toast('🎉','Messaggio inviato! Controlla Telegram','ok');document.getElementById('cfg-ok').style.display='flex';}
+  else toast('❌','Errore! Controlla Token e Chat ID','err');
+}
+
+function updateTgStatus(){
+  const el=document.getElementById('tg-status'),txt=document.getElementById('tg-status-txt');
+  if(cfg.token&&cfg.chatid){el.classList.add('connected');txt.textContent='Telegram ✓';}
+  else{el.classList.remove('connected');txt.textContent='Telegram — non connesso';}
+}
+function updateSerpStatus(){
+  const el=document.getElementById('serp-badge'),txt=document.getElementById('serp-badge-txt');
+  if(cfg.serpapi){el.classList.add('active');txt.textContent='SerpApi ✓';}
+  else{el.classList.remove('active');txt.textContent='SerpApi — non configurata';}
+}
+function updateTgWarning(){
+  document.getElementById('tg-warn').style.display=(!cfg.token||!cfg.chatid)?'flex':'none';
+  document.getElementById('tg-ok').style.display=(cfg.token&&cfg.chatid)?'flex':'none';
+}
+function updateQuotaDisplay(){
+  const used=serpQuota.used||0,total=100;
+  const left=Math.max(0,total-used);
+  const pct=Math.min(100,(used/total)*100);
+  document.getElementById('quota-bar').style.width=pct+'%';
+  document.getElementById('quota-used').textContent=`${used} usate`;
+  document.getElementById('quota-left').textContent=`${left} rimanenti`;
+  document.getElementById('quota-card').style.display=cfg.serpapi?'block':'none';
+}
+
+// ═══════════════════════════════════════════════
+// GOOGLE FLIGHTS URL
+// ═══════════════════════════════════════════════
+function buildGF(){
+  const o=document.getElementById('s-origin').value.trim();
+  const d=document.getElementById('s-dest').value.trim();
+  const dep=document.getElementById('s-dep').value;
+  const ret=document.getElementById('s-ret').value;
+  const iata=s=>{const m=s.match(/\b([A-Z]{3})\b/);return m?m[1]:s.slice(0,3).toUpperCase();};
+  let url=`https://www.google.com/travel/flights#flt=${iata(o)}.${iata(d)}.${dep}`;
+  if(tripType==='rt') url+=`*${iata(d)}.${iata(o)}.${ret}`;
+  url+=`;c:EUR;e:1;sd:1;t:h`;
+  return url;
+}
+function buildGFForAlert(a){
+  let url=`https://www.google.com/travel/flights#flt=${a.o}.${a.d}.${a.dep}`;
+  if(a.ret) url+=`*${a.d}.${a.o}.${a.ret}`;
+  url+=`;c:EUR;e:1;sd:1;t:h`;
+  return url;
+}
+
+// ═══════════════════════════════════════════════
+// CREATE ALERT
+// ═══════════════════════════════════════════════
+function createAlert(){
+  const o=document.getElementById('s-origin').value.trim();
+  const d=document.getElementById('s-dest').value.trim();
+  const dep=document.getElementById('s-dep').value;
+  const ret=document.getElementById('s-ret').value;
+  const maxp=parseFloat(document.getElementById('s-maxprice').value);
+  if(!o||!d){toast('⚠️','Inserisci partenza e destinazione!','warn');return;}
+  if(!maxp||maxp<=0){toast('⚠️','Inserisci un prezzo massimo!','warn');return;}
+  const a={
+    id:Date.now(),o,d,dep,
+    ret:tripType==='rt'?ret:null,
+    tripType,maxPrice:maxp,
+    cur:document.getElementById('s-cur').value,
+    email:document.getElementById('s-email').value.trim(),
+    phone:document.getElementById('s-phone').value.trim(),
+    note:document.getElementById('s-note').value.trim(),
+    direct:document.getElementById('tog-direct').classList.contains('on'),
+    escale:document.getElementById('tog-escale').classList.contains('on'),
+    cabin:document.getElementById('s-cabin').value,
+    pax:document.getElementById('s-pax').value,
+    createdAt:new Date().toLocaleString('it'),active:true
+  };
+  alerts.unshift(a);save();
+  const gfl=buildGF();
+  const lnk=document.getElementById('gf-link');
+  lnk.href=gfl;lnk.classList.add('show');
+  log('ok',`✅ Alert creato: ${o} → ${d} | Soglia: ${SYMS[a.cur]||a.cur}${maxp}`);
+  toast('🔔','Alert creato! Apertura Google Flights…','ok');
+  setTimeout(()=>window.open(gfl,'_blank'),600);
+  if(!cfg.token) updateTgWarning();
+}
+
+// ═══════════════════════════════════════════════
+// RENDER ALERTS
+// ═══════════════════════════════════════════════
+function renderAlerts(){
+  const list=document.getElementById('alerts-list');
+  const cnt=document.getElementById('alert-cnt');
+  cnt.textContent=`${alerts.length} attiv${alerts.length===1?'o':'i'}`;
+  if(!alerts.length){
+    list.innerHTML=`<div class="empty"><div class="ei">🔔</div><p>Nessun alert attivo.<br>Crea il primo dalla scheda "🔍 Cerca".</p></div>`;
+    return;
+  }
+  list.innerHTML=alerts.map(a=>`
+    <div class="aitem">
+      <div class="pdot"></div>
+      <div class="aroute">
+        <div class="rtext"><span>${a.o}</span><span class="rarr">${a.tripType==='rt'?'⇄':'→'}</span><span>${a.d}</span></div>
+        <div class="ameta"><span>📅 ${a.dep}</span>${a.ret?`<span>↩ ${a.ret}</span>`:''}<span>💺 ${a.cabin}</span></div>
+        <div class="ameta">${a.email?`<span>📧 ${a.email}</span>`:''}<span style="color:var(--muted);">⏱ ${a.createdAt}</span></div>
+      </div>
+      <div class="aprice"><div class="atgt">${SYMS[a.cur]||a.cur}${a.maxPrice}</div><div class="albl">soglia max</div></div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <button class="btn-secondary" style="padding:5px 9px;font-size:.7rem;" onclick="checkNow(${a.id})">🔍</button>
+        <button class="btn-danger" onclick="delAlert(${a.id})">🗑</button>
+      </div>
+    </div>`).join('');
+}
+function delAlert(id){alerts=alerts.filter(a=>a.id!==id);save();renderAlerts();toast('🗑','Alert eliminato','warn');}
+
+// ═══════════════════════════════════════════════
+// MONITOR
+// ═══════════════════════════════════════════════
+function toggleMonitor(){if(monitorActive) stopMonitor();else startMonitor();}
+
+function startMonitor(){
+  if(!alerts.length){toast('⚠️','Crea almeno un alert prima!','warn');return;}
+  monitorActive=true;
+  document.getElementById('mon-btn').textContent='⏹ Ferma';
+  document.getElementById('mon-btn').className='btn-danger';
+  document.getElementById('mon-title').textContent='📡 Monitoraggio attivo';
+  document.getElementById('mon-sub').textContent=`Ogni ${monitorFreq} min — ${alerts.length} alert${cfg.serpapi?' — SerpApi attiva':''}`;
+  document.getElementById('live-indicator').style.display='flex';
+  document.getElementById('countdown').style.display='block';
+  log('ok',`▶ Monitoraggio avviato — ${monitorFreq} min${cfg.serpapi?' — SerpApi: prezzi reali':' — Modalità: Google Flights manuale'}`);
+  toast('📡','Monitoraggio avviato!','ok');
+  runCheck();
+  monitorInterval=setInterval(runCheck,monitorFreq*60*1000);
+  countdown=monitorFreq*60;
+  updateCountdown();
+  countdownTimer=setInterval(()=>{countdown--;if(countdown<=0)countdown=monitorFreq*60;updateCountdown();},1000);
+}
+function stopMonitor(){
+  monitorActive=false;clearInterval(monitorInterval);clearInterval(countdownTimer);
+  document.getElementById('mon-btn').textContent='▶ Avvia';
+  document.getElementById('mon-btn').className='btn-green';
+  document.getElementById('mon-title').textContent='⏸ Monitoraggio in pausa';
+  document.getElementById('mon-sub').textContent='Clicca "Avvia" per iniziare il controllo automatico';
+  document.getElementById('live-indicator').style.display='none';
+  document.getElementById('countdown').style.display='none';
+  log('info','⏹ Monitoraggio fermato');toast('⏹','Monitoraggio fermato','warn');
+}
+function updateCountdown(){
+  const m=Math.floor(countdown/60).toString().padStart(2,'0');
+  const s=(countdown%60).toString().padStart(2,'0');
+  document.getElementById('countdown').textContent=`${m}:${s}`;
+}
+async function runCheck(){
+  log('info',`🔍 Controllo alle ${new Date().toLocaleTimeString('it')} — ${alerts.length} alert`);
+  for(const a of alerts) await checkAlert(a);
+  log('info','— Prossimo controllo in '+monitorFreq+' min —');
+}
+async function checkNow(id){
+  const a=alerts.find(x=>x.id===id);if(!a)return;
+  showTab('monitor');log('info',`🔍 Controllo manuale: ${a.o} → ${a.d}`);
+  await checkAlert(a);
+}
+
+// ─── PRICE CHECK ────────────────────────────────
+async function checkAlert(a){
+  const sym=SYMS[a.cur]||a.cur;
+  log('info',`  ↳ ${a.o}→${a.d} | Soglia: ${sym}${a.maxPrice}`);
+  if(cfg.serpapi){
+    // Controlla quota
+    if(serpQuota.used>=100){
+      log('warn','  ⚠️ Quota SerpApi mensile esaurita (100/100). Riprenderà il mese prossimo.');
+      return;
+    }
+    const result=await checkWithSerpApi(a,cfg.serpapi);
+    if(result){
+      serpQuota.used++;
+      localStorage.setItem('va_serpquota',JSON.stringify(serpQuota));
+      updateQuotaDisplay();
+      log('info',`  💰 Prezzo trovato: ${sym}${result.price} (${result.airline}) — quota usata: ${serpQuota.used}/100`);
+      if(result.price<=a.maxPrice){
+        await notifyFound(a,result.price,result.airline||'N/D',result.stops||0);
+      }else{
+        log('info',`  ℹ️  ${sym}${result.price} ancora sopra soglia ${sym}${a.maxPrice}`);
+      }
+      return;
+    }
+  }
+  // Fallback
+  log('warn',`  ⚠️ SerpApi non disponibile. Controlla manualmente → ${buildGFForAlert(a)}`);
+}
+
+async function checkWithSerpApi(a,key){
+  try{
+    const params=new URLSearchParams({
+      engine:'google_flights',
+      departure_id:a.o,arrival_id:a.d,
+      outbound_date:a.dep,
+      currency:a.cur,hl:'it',
+      api_key:key,
+      type:a.tripType==='rt'?'1':'2'
+    });
+    if(a.ret&&a.tripType==='rt') params.set('return_date',a.ret);
+    const r=await fetch(`https://serpapi.com/search.json?${params}`);
+    const d=await r.json();
+    if(d.error){log('err','  ❌ SerpApi: '+d.error);return null;}
+    const flights=[...(d.best_flights||[]),...(d.other_flights||[])];
+    if(!flights.length) return null;
+    const prices=flights.map(f=>({
+      price:f.price,
+      airline:(f.flights||[{}])[0].airline||'N/D',
+      stops:(f.flights||[]).length-1
+    })).filter(f=>f.price);
+    return prices.length?prices.sort((a,b)=>a.price-b.price)[0]:null;
+  }catch(e){log('err','  ❌ SerpApi error: '+e.message);return null;}
+}
+
+async function notifyFound(a,price,airline,stops){
+  const sym=SYMS[a.cur]||a.cur;
+  const risparmio=a.maxPrice-price;
+  const now=new Date().toLocaleString('it');
+  log('found',`  🎉 TROVATO! ${a.o}→${a.d} a ${sym}${price} — risparmio ${sym}${risparmio}`);
+  const msg=
+    `🚨 <b>VOLO TROVATO SOTTO SOGLIA!</b>\n\n`+
+    `✈️ <b>${a.o} → ${a.d}</b>\n`+
+    `📅 Andata: ${a.dep}\n`+
+    (a.ret?`📅 Ritorno: ${a.ret}\n`:'')+
+    `💰 Prezzo: <b>${sym}${price}</b>\n`+
+    `🎯 Soglia: ${sym}${a.maxPrice}\n`+
+    `💚 Risparmi: <b>${sym}${risparmio}!</b>\n`+
+    `🛫 Compagnia: ${airline}\n`+
+    `${stops===0?'✈️ Diretto':`🔄 ${stops} scalo/i`}\n`+
+    (a.note?`📝 ${a.note}\n`:'')+
+    `\n👉 ${buildGFForAlert(a)}\n\n⏰ ${now}`;
+  const ok=await sendTelegram(msg);
+  if(ok){
+    toast('🎉',`Trovato ${sym}${price} per ${a.o}→${a.d}!`,'ok');
+    history_log.unshift({id:Date.now(),route:`${a.o} → ${a.d}`,price,sym,maxPrice:a.maxPrice,airline,dep:a.dep,ret:a.ret,stops,note:a.note,foundAt:now});
+    saveHistory();renderHistory();
+  }
+}
+
+// ═══════════════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════════════
+function renderHistory(){
+  const list=document.getElementById('history-list'),cnt=document.getElementById('hist-cnt');
+  cnt.textContent=history_log.length;
+  if(!history_log.length){
+    list.innerHTML=`<div class="empty"><div class="ei">📜</div><p>Nessuna notifica inviata ancora.</p></div>`;return;
+  }
+  list.innerHTML=history_log.map(h=>`
+    <div class="notif-item">
+      <div class="ni-hdr"><div class="ni-route">🎉 ${h.route}</div><div class="ni-time">${h.foundAt}</div></div>
+      <div class="ni-price">${h.sym}${h.price}</div>
+      <div class="ni-meta">Soglia: ${h.sym}${h.maxPrice} | Risparmio: ${h.sym}${h.maxPrice-h.price} | ${h.stops===0?'Diretto':h.stops+' scalo/i'} | ${h.airline}</div>
+      ${h.note?`<div class="ni-meta">📝 ${h.note}</div>`:''}
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════
+// LOG
+// ═══════════════════════════════════════════════
+function log(type,msg){
+  const box=document.getElementById('log-box');
+  const div=document.createElement('div');div.className=`log-line log-${type}`;
+  div.textContent=`[${new Date().toLocaleTimeString('it')}] ${msg}`;
+  box.appendChild(div);box.scrollTop=box.scrollHeight;
+}
+function clearLog(){document.getElementById('log-box').innerHTML='<div class="log-line log-info">— Log pulito —</div>';}
+
+// ═══════════════════════════════════════════════
+// SAVE
+// ═══════════════════════════════════════════════
+function save(){localStorage.setItem('va_alerts',JSON.stringify(alerts));}
+function saveHistory(){localStorage.setItem('va_history',JSON.stringify(history_log));}
+
+// ═══════════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════════
+function exportAlerts(){
+  if(!alerts.length){toast('⚠️','Crea almeno un alert prima!','warn');return;}
+  const blob=new Blob([JSON.stringify(alerts,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='alerts.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  toast('📥','alerts.json scaricato!','ok');
+  log('ok','📥 alerts.json esportato');
+}
+
+// ═══════════════════════════════════════════════
+// COPY HELPERS
+// ═══════════════════════════════════════════════
+function copyGASCode(){
+  // Personalizza con i dati salvati se disponibili
+  let code=document.getElementById('gas-code').textContent;
+  if(cfg.token) code=code.replace('IL_TUO_TOKEN_QUI',cfg.token);
+  if(cfg.chatid) code=code.replace('IL_TUO_CHAT_ID_QUI',cfg.chatid);
+  navigator.clipboard.writeText(code).then(()=>{
+    toast('📋','Codice copiato! Incollalo su script.google.com','ok');
+  }).catch(()=>{
+    // fallback
+    const ta=document.createElement('textarea');ta.value=code;
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast('📋','Codice copiato!','ok');
+  });
+}
+function copyGHWorkflow(){
+  const code=document.getElementById('gh-workflow').textContent;
+  navigator.clipboard.writeText(code).then(()=>toast('📋','Workflow copiato!','ok')).catch(()=>toast('⚠️','Copia manuale necessaria','warn'));
+}
+
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+let toastTimer=null;
+function toast(ic,msg,type='ok'){
+  const el=document.getElementById('toast');
+  document.getElementById('t-ic').textContent=ic;
+  document.getElementById('t-msg').textContent=msg;
+  el.className=`toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),3600);
+}
+
+// ═══════════════════════════════════════════════
+// AIRPORT AUTOCOMPLETE
+// ═══════════════════════════════════════════════
+const AIRPORTS=[
+  {iata:'FCO',city:'Roma',name:'Fiumicino',country:'Italia',flag:'🇮🇹'},
+  {iata:'CIA',city:'Roma',name:'Ciampino',country:'Italia',flag:'🇮🇹'},
+  {iata:'MXP',city:'Milano',name:'Malpensa',country:'Italia',flag:'🇮🇹'},
+  {iata:'LIN',city:'Milano',name:'Linate',country:'Italia',flag:'🇮🇹'},
+  {iata:'BGY',city:'Milano',name:'Bergamo',country:'Italia',flag:'🇮🇹'},
+  {iata:'NAP',city:'Napoli',name:'Capodichino',country:'Italia',flag:'🇮🇹'},
+  {iata:'VCE',city:'Venezia',name:'Marco Polo',country:'Italia',flag:'🇮🇹'},
+  {iata:'BLQ',city:'Bologna',name:'Marconi',country:'Italia',flag:'🇮🇹'},
+  {iata:'FLR',city:'Firenze',name:'Vespucci',country:'Italia',flag:'🇮🇹'},
+  {iata:'PSA',city:'Pisa',name:'Galileo Galilei',country:'Italia',flag:'🇮🇹'},
+  {iata:'CTA',city:'Catania',name:'Fontanarossa',country:'Italia',flag:'🇮🇹'},
+  {iata:'PMO',city:'Palermo',name:'Falcone Borsellino',country:'Italia',flag:'🇮🇹'},
+  {iata:'BRI',city:'Bari',name:'Karol Wojtyla',country:'Italia',flag:'🇮🇹'},
+  {iata:'TRN',city:'Torino',name:'Caselle',country:'Italia',flag:'🇮🇹'},
+  {iata:'CAG',city:'Cagliari',name:'Elmas',country:'Italia',flag:'🇮🇹'},
+  {iata:'OLB',city:'Olbia',name:'Costa Smeralda',country:'Italia',flag:'🇮🇹'},
+  {iata:'VRN',city:'Verona',name:'Villafranca',country:'Italia',flag:'🇮🇹'},
+  {iata:'CDG',city:'Parigi',name:'Charles de Gaulle',country:'Francia',flag:'🇫🇷'},
+  {iata:'ORY',city:'Parigi',name:'Orly',country:'Francia',flag:'🇫🇷'},
+  {iata:'NCE',city:'Nizza',name:'Côte d\'Azur',country:'Francia',flag:'🇫🇷'},
+  {iata:'LYS',city:'Lione',name:'Saint-Exupéry',country:'Francia',flag:'🇫🇷'},
+  {iata:'MRS',city:'Marsiglia',name:'Provence',country:'Francia',flag:'🇫🇷'},
+  {iata:'LHR',city:'Londra',name:'Heathrow',country:'UK',flag:'🇬🇧'},
+  {iata:'LGW',city:'Londra',name:'Gatwick',country:'UK',flag:'🇬🇧'},
+  {iata:'STN',city:'Londra',name:'Stansted',country:'UK',flag:'🇬🇧'},
+  {iata:'MAD',city:'Madrid',name:'Barajas',country:'Spagna',flag:'🇪🇸'},
+  {iata:'BCN',city:'Barcellona',name:'El Prat',country:'Spagna',flag:'🇪🇸'},
+  {iata:'PMI',city:'Palma',name:'Son Sant Joan',country:'Spagna',flag:'🇪🇸'},
+  {iata:'IBZ',city:'Ibiza',name:'Ibiza',country:'Spagna',flag:'🇪🇸'},
+  {iata:'TFS',city:'Tenerife',name:'Tenerife Sur',country:'Spagna',flag:'🇪🇸'},
+  {iata:'LPA',city:'Gran Canaria',name:'Las Palmas',country:'Spagna',flag:'🇪🇸'},
+  {iata:'FRA',city:'Francoforte',name:'Frankfurt',country:'Germania',flag:'🇩🇪'},
+  {iata:'MUC',city:'Monaco',name:'Franz Josef Strauss',country:'Germania',flag:'🇩🇪'},
+  {iata:'BER',city:'Berlino',name:'Brandenburg',country:'Germania',flag:'🇩🇪'},
+  {iata:'JFK',city:'New York',name:'Kennedy',country:'USA',flag:'🇺🇸'},
+  {iata:'LAX',city:'Los Angeles',name:'Los Angeles Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'MIA',city:'Miami',name:'Miami Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'DXB',city:'Dubai',name:'Dubai Intl',country:'Emirati Arabi',flag:'🇦🇪'},
+  {iata:'DOH',city:'Doha',name:'Hamad Intl',country:'Qatar',flag:'🇶🇦'},
+  {iata:'IST',city:'Istanbul',name:'Istanbul',country:'Turchia',flag:'🇹🇷'},
+  {iata:'CAI',city:'Il Cairo',name:'Cairo Intl',country:'Egitto',flag:'🇪🇬'},
+  {iata:'CMN',city:'Casablanca',name:'Mohammed V',country:'Marocco',flag:'🇲🇦'},
+  {iata:'RAK',city:'Marrakech',name:'Menara',country:'Marocco',flag:'🇲🇦'},
+  {iata:'ALG',city:'Algeri',name:'Houari Boumediene',country:'Algeria',flag:'🇩🇿'},
+  {iata:'ORN',city:'Orano',name:'Ahmed Ben Bella',country:'Algeria',flag:'🇩🇿'},
+  {iata:'TUN',city:'Tunisi',name:'Carthage',country:'Tunisia',flag:'🇹🇳'},
+  {iata:'NRT',city:'Tokyo',name:'Narita',country:'Giappone',flag:'🇯🇵'},
+  {iata:'SIN',city:'Singapore',name:'Changi',country:'Singapore',flag:'🇸🇬'},
+  {iata:'BKK',city:'Bangkok',name:'Suvarnabhumi',country:'Tailandia',flag:'🇹🇭'},
+  {iata:'DPS',city:'Bali',name:'Ngurah Rai',country:'Indonesia',flag:'🇮🇩'},
+  {iata:'MLE',city:'Malé',name:'Velana Intl',country:'Maldive',flag:'🇲🇻'},
+  {iata:'AMS',city:'Amsterdam',name:'Schiphol',country:'Olanda',flag:'🇳🇱'},
+  {iata:'BRU',city:'Bruxelles',name:'Zaventem',country:'Belgio',flag:'🇧🇪'},
+  {iata:'ZRH',city:'Zurigo',name:'Kloten',country:'Svizzera',flag:'🇨🇭'},
+  {iata:'VIE',city:'Vienna',name:'Schwechat',country:'Austria',flag:'🇦🇹'},
+  {iata:'ATH',city:'Atene',name:'Eleftherios Venizelos',country:'Grecia',flag:'🇬🇷'},
+  {iata:'LIS',city:'Lisbona',name:'Humberto Delgado',country:'Portogallo',flag:'🇵🇹'},
+  {iata:'DUB',city:'Dublino',name:'Dublin',country:'Irlanda',flag:'🇮🇪'},
+  {iata:'GRU',city:'São Paulo',name:'Guarulhos',country:'Brasile',flag:'🇧🇷'},
+  {iata:'CUN',city:'Cancún',name:'Cancún Intl',country:'Messico',flag:'🇲🇽'},
+  {iata:'HRG',city:'Hurghada',name:'Hurghada',country:'Egitto',flag:'🇪🇬'},
+  {iata:'SSH',city:'Sharm el-Sheikh',name:'Sharm el-Sheikh',country:'Egitto',flag:'🇪🇬'},
+];
+
+function acSearch(input,dropId){
+  const q=input.value.trim().toLowerCase();
+  const drop=document.getElementById(dropId);
+  if(q.length<2){acHide(dropId);return;}
+  const res=AIRPORTS.filter(a=>
+    a.city.toLowerCase().includes(q)||a.iata.toLowerCase().includes(q)||
+    a.name.toLowerCase().includes(q)||a.country.toLowerCase().includes(q)
+  ).slice(0,8);
+  if(!res.length){acHide(dropId);return;}
+  drop.innerHTML=res.map(a=>`
+    <div class="ac-item" onclick="acSelect('${input.id}','${dropId}','${a.iata}','${a.city}','${a.name}')">
+      <div class="ac-flag">${a.flag}</div>
+      <div 
