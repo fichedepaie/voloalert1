@@ -157,7 +157,6 @@ select.fi option{background:#131e38;}
 .step-body p{font-size:.78rem;color:var(--muted);line-height:1.6;}
 .step-body code{background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-size:.74rem;color:var(--accent);}
 
-/* CODE BLOCK */
 .code-block{background:rgba(0,0,0,.45);border:1px solid rgba(56,189,248,0.15);border-radius:12px;padding:14px;font-family:monospace;font-size:.72rem;line-height:1.8;color:#a5f3fc;overflow-x:auto;position:relative;margin:10px 0;}
 .code-block .cb-copy{position:absolute;top:8px;right:8px;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.2);border-radius:7px;padding:4px 10px;color:var(--accent);font-family:'DM Sans',sans-serif;font-size:.7rem;cursor:pointer;transition:.2s;}
 .code-block .cb-copy:hover{background:rgba(56,189,248,0.2);}
@@ -179,7 +178,6 @@ select.fi option{background:#131e38;}
 .notif-item .ni-price{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--gold);}
 .notif-item .ni-meta{font-size:.75rem;color:var(--muted);margin-top:3px;}
 
-/* METHOD SELECTOR */
 .method-tabs{display:flex;gap:8px;margin-bottom:16px;}
 .mtab{flex:1;padding:11px;border:1px solid var(--border);border-radius:12px;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;color:var(--muted);transition:.2s;text-align:center;}
 .mtab.active.gold{border-color:var(--gold);color:var(--gold);background:rgba(251,191,36,0.07);}
@@ -188,12 +186,10 @@ select.fi option{background:#131e38;}
 .method-content{display:none;}
 .method-content.active{display:block;}
 
-/* QUOTA BAR */
 .quota-bar-wrap{background:rgba(0,0,0,.3);border-radius:8px;height:8px;margin:6px 0 3px;overflow:hidden;}
 .quota-bar{height:100%;background:linear-gradient(90deg,var(--success),var(--gold));border-radius:8px;transition:.6s;}
 .quota-txt{font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;}
 
-/* AC */
 .ac-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#0d1829;border:1px solid rgba(56,189,248,0.3);border-radius:12px;z-index:999;max-height:260px;overflow-y:auto;display:none;box-shadow:0 12px 40px rgba(0,0,0,.6);}
 .ac-dropdown.show{display:block;}
 .ac-item{padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:11px;transition:.15s;border-bottom:1px solid rgba(255,255,255,0.04);}
@@ -365,7 +361,6 @@ select.fi option{background:#131e38;}
       </div>
     </div>
 
-    <!-- Quota SerpApi -->
     <div class="card gold-border" id="quota-card">
       <div class="ctitle gold">📊 Quota SerpApi questo mese</div>
       <div class="quota-bar-wrap"><div class="quota-bar" id="quota-bar" style="width:0%"></div></div>
@@ -418,7 +413,6 @@ select.fi option{background:#131e38;}
   <!-- TAB: SETTINGS -->
   <div class="tsec" id="tab-settings">
 
-    <!-- TELEGRAM -->
     <div class="card gold-border">
       <div class="ctitle gold">📱 Configurazione Telegram</div>
       <div class="ok-bar" id="cfg-ok" style="display:none;">✅ Connesso! Bot attivo e pronto.</div>
@@ -439,7 +433,6 @@ select.fi option{background:#131e38;}
       </div>
     </div>
 
-    <!-- COME OTTENERE IL TOKEN -->
     <div class="card">
       <div class="ctitle">🤖 Come ottenere il Token del Bot</div>
       <div class="step">
@@ -460,7 +453,7 @@ select.fi option{background:#131e38;}
         <div class="step-num">3</div>
         <div class="step-body">
           <h4>Copia il Token</h4>
-          <p>BotFather ti manda un messaggio con il <strong style="color:var(--gold);">Token</strong> (es: <code>1234567890:AAEtE...</code>). Incollalo sopra.</p>
+          <p>BotFather ti manda un messaggio con il <strong style="color:var(--gold);">Token</strong>. Incollalo sopra.</p>
         </div>
       </div>
       <div class="step">
@@ -475,7 +468,6 @@ select.fi option{background:#131e38;}
 
     <div class="divider"></div>
 
-    <!-- DUE METODI -->
     <div class="shdr" style="margin-bottom:10px;">
       <h2>🚀 METODI DI MONITORAGGIO</h2>
     </div>
@@ -486,260 +478,113 @@ select.fi option{background:#131e38;}
       <button class="mtab purple" onclick="showMethod('gmail')">📧 Metodo B — Gmail → Telegram<br><small style="font-weight:400;opacity:.7;">Gratis al 100%, zero server</small></button>
     </div>
 
-    <!-- METODO A: SERPAPI -->
     <div class="method-content active" id="method-serpapi">
       <div class="card gold-border">
         <div class="ctitle gold">⚡ SerpApi — Prezzi Reali da Google Flights</div>
-
         <div class="info-bar">
-          ℹ️ <span><strong>Piano gratuito:</strong> 100 ricerche/mese. Con 1 alert, ogni 30 min = ~1.440 ricerche/mese (troppo). <strong>Consiglio:</strong> controlla ogni 6-12 ore per restare nel gratuito.</span>
+          ℹ️ <span><strong>Piano gratuito:</strong> 100 ricerche/mese. <strong>Consiglio:</strong> controlla ogni 6-12 ore per restare nel gratuito.</span>
         </div>
-
         <div class="ok-bar" id="serp-ok" style="display:none;">✅ SerpApi configurata! Prezzi reali attivi.</div>
-
         <div class="field" style="margin-bottom:11px;">
           <label>🔑 SerpApi Key</label>
           <input class="fi" type="password" id="cfg-serpapi" placeholder="Incolla la tua API key da serpapi.com">
         </div>
-
         <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px;">
           <button class="btn-primary" style="flex:1;min-width:140px;" onclick="saveSerpApiConfig()">💾 Salva SerpApi Key</button>
           <button class="btn-gold" onclick="testSerpApi()">🧪 Testa SerpApi</button>
         </div>
-
         <div class="divider"></div>
-        <p style="font-size:.78rem;color:var(--muted);font-weight:600;margin-bottom:10px;">📋 Come ottenere la chiave gratuita:</p>
-
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-body">
-            <h4>Crea account su SerpApi</h4>
-            <p>Vai su <strong style="color:var(--gold);">serpapi.com</strong> → Sign up → scegli piano <strong>Free</strong> (100 ricerche/mese, no carta di credito)</p>
-          </div>
+          <div class="step-body"><h4>Crea account su SerpApi</h4><p>Vai su <strong style="color:var(--gold);">serpapi.com</strong> → Sign up → piano Free (100 ricerche/mese)</p></div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-body">
-            <h4>Copia la tua API Key</h4>
-            <p>Dashboard → copia la chiave → incollala nel campo sopra → Salva</p>
-          </div>
+          <div class="step-body"><h4>Copia la tua API Key</h4><p>Dashboard → copia la chiave → incollala sopra → Salva</p></div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div class="step-body">
-            <h4>Imposta la frequenza giusta</h4>
-            <p>Con 100 ricerche gratis: <strong style="color:var(--gold);">1 alert → controlla ogni 12 ore</strong> (60 ricerche/mese). Vai su Monitor → seleziona "Ogni 2 ore" come minimo.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-body">
-            <h4>Avvia il Monitor</h4>
-            <p>Vai su scheda <strong>📡 Monitor</strong> → Avvia. Il sistema controlla i prezzi reali e ti manda notifica Telegram appena il volo scende sotto soglia.</p>
-          </div>
+          <div class="step-body"><h4>Avvia il Monitor</h4><p>Vai su scheda <strong>📡 Monitor</strong> → Avvia. Il sistema controlla i prezzi reali e ti manda notifica Telegram.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- METODO B: GMAIL → TELEGRAM -->
     <div class="method-content" id="method-gmail">
       <div class="card purple-border">
         <div class="ctitle purple">📧 Gmail → Telegram — Gratis al 100%</div>
-
         <div class="purple-bar">
-          💡 <span><strong>Come funziona:</strong> Google Flights manda email quando il prezzo scende. Un piccolo script (Google Apps Script, gratis) legge quella email e la inoltra istantaneamente al tuo Telegram. Zero server, zero costi.</span>
+          💡 <span><strong>Come funziona:</strong> Google Flights manda email quando il prezzo scende. Un script (Google Apps Script, gratis) legge quella email e la inoltra al tuo Telegram. Zero server, zero costi.</span>
         </div>
-
         <div class="step">
           <div class="step-num">1</div>
-          <div class="step-body">
-            <h4>Crea Alert su Google Flights</h4>
-            <p>Vai su <strong style="color:var(--accent);">google.com/travel/flights</strong> → cerca la tua tratta → clicca l'icona 🔔 "Monitora prezzi". Google ti manderà email quando il prezzo cambia.</p>
-          </div>
+          <div class="step-body"><h4>Crea Alert su Google Flights</h4><p>Vai su <strong style="color:var(--accent);">google.com/travel/flights</strong> → cerca la tratta → clicca 🔔 "Monitora prezzi".</p></div>
         </div>
-
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-body">
-            <h4>Apri Google Apps Script</h4>
-            <p>Vai su <strong style="color:var(--accent);">script.google.com</strong> → Nuovo progetto → Cancella il codice esistente → Incolla il codice qui sotto.</p>
-          </div>
+          <div class="step-body"><h4>Apri Google Apps Script</h4><p>Vai su <strong style="color:var(--accent);">script.google.com</strong> → Nuovo progetto → incolla il codice qui sotto.</p></div>
         </div>
-
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <h4>Incolla questo codice (personalizzato per te)</h4>
-            <p>Sostituisci solo <code>TOKEN</code> e <code>CHAT_ID</code> con i tuoi dati Telegram:</p>
-          </div>
-        </div>
-
         <div class="code-block" id="gas-code-block">
           <button class="cb-copy" onclick="copyGASCode()">📋 Copia</button>
-          <pre id="gas-code">// ═══════════════════════════════════════════════
-// VoLoAlert — Google Apps Script
-// Inoltra alert Google Flights a Telegram
-// ═══════════════════════════════════════════════
-
-// ⚙️ CONFIGURAZIONE — modifica questi valori:
-const TELEGRAM_TOKEN  = "IL_TUO_TOKEN_QUI";
+          <pre id="gas-code">const TELEGRAM_TOKEN  = "IL_TUO_TOKEN_QUI";
 const TELEGRAM_CHAT_ID = "IL_TUO_CHAT_ID_QUI";
 
-// Parole chiave per riconoscere email Google Flights
-const GF_KEYWORDS = [
-  "google flights",
-  "price change",
-  "noreply@google.com",
-  "prices for your trip",
-  "prezzi per il tuo viaggio",
-  "flight price alert"
-];
-
-// ═══════════════════════════════════════════════
-// FUNZIONE PRINCIPALE — gira ogni 15 minuti
-// ═══════════════════════════════════════════════
 function checkFlightEmails() {
   const label = getOrCreateLabel("VoLoAlert/Processate");
-
-  // Cerca email non lette da Google Flights
   const threads = GmailApp.search(
-    'from:(noreply@google.com OR flights-noreply@google.com) ' +
-    'subject:(price OR prezzo OR flight OR volo) ' +
-    'is:unread',
-    0, 20
+    'from:(noreply@google.com OR flights-noreply@google.com) subject:(price OR prezzo OR flight OR volo) is:unread', 0, 20
   );
-
-  if (threads.length === 0) {
-    console.log("Nessuna email Google Flights da processare.");
-    return;
-  }
-
-  console.log(`Trovate ${threads.length} email da processare.`);
-
+  if (threads.length === 0) return;
   threads.forEach(thread => {
     const messages = thread.getMessages();
     messages.forEach(msg => {
       if (!msg.isUnread()) return;
-
-      const from    = msg.getFrom();
-      const subject = msg.getSubject();
-      const body    = msg.getPlainBody().substring(0, 800);
-      const date    = msg.getDate().toLocaleString("it-IT");
-
-      console.log(`Processing: ${subject}`);
-
-      // Invia a Telegram
       const sent = sendToTelegram(
-        `✈️ <b>ALERT GOOGLE FLIGHTS</b>\n\n` +
-        `📧 Da: ${from}\n` +
-        `📋 Oggetto: ${subject}\n` +
-        `⏰ ${date}\n\n` +
-        `📄 <pre>${escapeHtml(body)}</pre>\n\n` +
-        `🔗 <a href="https://www.google.com/travel/flights">Apri Google Flights</a>`
+        "✈️ <b>ALERT GOOGLE FLIGHTS</b>\n\n" +
+        "📧 Da: " + msg.getFrom() + "\n" +
+        "📋 Oggetto: " + msg.getSubject() + "\n\n" +
+        "🔗 <a href=\"https://www.google.com/travel/flights\">Apri Google Flights</a>"
       );
-
-      if (sent) {
-        msg.markRead();
-        thread.addLabel(label);
-        console.log(`✅ Inoltrato a Telegram: ${subject}`);
-      }
+      if (sent) { msg.markRead(); thread.addLabel(label); }
     });
   });
 }
 
-// ═══════════════════════════════════════════════
-// INVIA MESSAGGIO TELEGRAM
-// ═══════════════════════════════════════════════
 function sendToTelegram(text) {
-  const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
-  const payload = {
-    method: "post",
-    contentType: "application/json",
-    payload: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: text,
-      parse_mode: "HTML",
-      disable_web_page_preview: false
-    }),
-    muteHttpExceptions: true
-  };
-
+  const url = "https://api.telegram.org/bot" + TELEGRAM_TOKEN + "/sendMessage";
   try {
-    const response = UrlFetchApp.fetch(url, payload);
-    const result = JSON.parse(response.getContentText());
-    if (!result.ok) {
-      console.error("Errore Telegram:", result.description);
-      return false;
-    }
-    return true;
-  } catch (e) {
-    console.error("Errore rete:", e.toString());
-    return false;
-  }
+    const response = UrlFetchApp.fetch(url, {
+      method: "post", contentType: "application/json",
+      payload: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: "HTML" }),
+      muteHttpExceptions: true
+    });
+    return JSON.parse(response.getContentText()).ok;
+  } catch(e) { return false; }
 }
 
-// ═══════════════════════════════════════════════
-// HELPER: crea/recupera label Gmail
-// ═══════════════════════════════════════════════
 function getOrCreateLabel(name) {
   let label = GmailApp.getUserLabelByName(name);
   if (!label) label = GmailApp.createLabel(name);
   return label;
 }
 
-function escapeHtml(text) {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-// ═══════════════════════════════════════════════
-// TEST — eseguilo una volta per verificare
-// ═══════════════════════════════════════════════
 function testConnection() {
-  const ok = sendToTelegram(
-    "✅ <b>VoLoAlert Google Script funziona!</b>\n\n" +
-    "📧 Lo script è installato correttamente.\n" +
-    "✈️ Riceverai notifiche Telegram ogni volta che\n" +
-    "Google Flights ti manda un'email di alert prezzi.\n\n" +
-    "⏰ Controllo automatico ogni 15 minuti."
-  );
-  if (ok) {
-    console.log("✅ Test riuscito! Controlla Telegram.");
-  } else {
-    console.error("❌ Test fallito. Controlla Token e Chat ID.");
-  }
+  sendToTelegram("✅ <b>VoLoAlert Script funziona!</b>\n\nRiceverai notifiche ogni volta che Google Flights ti manda un alert prezzi.");
 }</pre>
         </div>
-
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body"><h4>Esegui il test</h4><p>Salva → seleziona <code>testConnection</code> → ▶ Esegui → autorizza → controlla Telegram.</p></div>
+        </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div class="step-body">
-            <h4>Esegui il test</h4>
-            <p>Salva il file (Ctrl+S) → seleziona funzione <code>testConnection</code> → clicca ▶ Esegui → autorizza l'accesso → controlla Telegram. Dovresti ricevere un messaggio di conferma.</p>
-          </div>
+          <div class="step-body"><h4>Imposta il Trigger automatico</h4><p>⏰ Trigger → Aggiungi → Funzione: <code>checkFlightEmails</code> → Ogni 15 minuti. Gratis per sempre!</p></div>
         </div>
-
-        <div class="step">
-          <div class="step-num">5</div>
-          <div class="step-body">
-            <h4>Imposta il Trigger automatico</h4>
-            <p>Nel menu a sinistra → ⏰ <strong>Trigger</strong> → Aggiungi trigger → Funzione: <code>checkFlightEmails</code> → Tipo: "Basato sul tempo" → Ogni 15 minuti. Da questo momento funziona 24/7 completamente gratis!</p>
-          </div>
-        </div>
-
-        <div class="ok-bar" style="margin-top:4px;">
-          ✅ Risultato finale: Google Flights manda email → script la legge → Telegram ti notifica entro 15 min. Gratis per sempre.
-        </div>
-
         <button class="btn-purple" style="width:100%;margin-top:4px;" onclick="copyGASCode()">📋 Copia il codice Apps Script</button>
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- GITHUB 24/7 -->
     <div class="card">
       <div class="ctitle">🚀 Bonus: GitHub Actions (SerpApi 24/7)</div>
       <p style="font-size:.82rem;color:var(--muted);margin-bottom:14px;">Per usare SerpApi anche con il telefono spento, esporta gli alert e usa GitHub Actions.</p>
@@ -749,41 +594,28 @@ function testConnection() {
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-body"><h4>Crea repository GitHub privato</h4><p>github.com → New repository → nome: <code>voloalert</code> → Private → carica <code>alerts.json</code></p></div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body"><h4>Aggiungi Secrets</h4><p>Settings → Secrets → Actions → aggiungi: <code>TELEGRAM_TOKEN</code>, <code>TELEGRAM_CHAT_ID</code>, <code>SERPAPI_KEY</code></p></div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-body"><h4>Crea workflow</h4><p>Crea file <code>.github/workflows/monitor.yml</code> con il pulsante qui sotto.</p></div>
+        <div class="step-body"><h4>Aggiungi Secrets su GitHub</h4><p>Settings → Secrets → Actions: <code>TELEGRAM_TOKEN</code>, <code>TELEGRAM_CHAT_ID</code>, <code>SERPAPI_KEY</code></p></div>
       </div>
       <button class="btn-secondary" style="margin-top:4px;" onclick="showGHWorkflow()">📄 Mostra workflow GitHub Actions</button>
       <div id="gh-workflow-wrap" style="display:none;margin-top:12px;">
         <div class="code-block">
           <button class="cb-copy" onclick="copyGHWorkflow()">📋 Copia</button>
           <pre id="gh-workflow">name: VoLoAlert Monitor
-
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Ogni 6 ore
-  workflow_dispatch:         # Esecuzione manuale
-
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 jobs:
   check-prices:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
       - name: Install dependencies
         run: npm install node-fetch
-
       - name: Check flight prices
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
@@ -791,7 +623,6 @@ jobs:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
         run: node check-prices.js</pre>
         </div>
-        <p style="font-size:.76rem;color:var(--muted);margin-top:8px;">Crea anche <code>check-prices.js</code> nella root del repo — esporta gli alert e usa lo stesso codice SerpApi dell'app.</p>
       </div>
     </div>
 
@@ -804,9 +635,7 @@ jobs:
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
 // STARS
-// ═══════════════════════════════════════════════
 const se=document.getElementById('stars');
 for(let i=0;i<80;i++){
   const s=document.createElement('div');s.className='star';
@@ -815,9 +644,6 @@ for(let i=0;i<80;i++){
   se.appendChild(s);
 }
 
-// ═══════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════
 const SYMS={EUR:'€',USD:'$',GBP:'£',CHF:'Fr',MAD:'MAD',DZD:'DZD'};
 let alerts=JSON.parse(localStorage.getItem('va_alerts')||'[]');
 let history_log=JSON.parse(localStorage.getItem('va_history')||'[]');
@@ -830,9 +656,6 @@ let monitorFreq=30;
 let countdown=0;
 let countdownTimer=null;
 
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
 (function init(){
   const t=new Date();
   const fmt=d=>d.toISOString().split('T')[0];
@@ -841,12 +664,8 @@ let countdownTimer=null;
   if(cfg.token)  document.getElementById('cfg-token').value=cfg.token;
   if(cfg.chatid) document.getElementById('cfg-chatid').value=cfg.chatid;
   if(cfg.serpapi)document.getElementById('cfg-serpapi').value=cfg.serpapi;
-  updateTgStatus();
-  updateSerpStatus();
-  updateQuotaDisplay();
-  renderAlerts();
-  renderHistory();
-  checkMonthReset();
+  updateTgStatus();updateSerpStatus();updateQuotaDisplay();
+  renderAlerts();renderHistory();checkMonthReset();
 })();
 
 function checkMonthReset(){
@@ -855,9 +674,6 @@ function checkMonthReset(){
   if(serpQuota.month!==m){serpQuota={used:0,month:m};localStorage.setItem('va_serpquota',JSON.stringify(serpQuota));}
 }
 
-// ═══════════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════════
 function showTab(id){
   document.querySelectorAll('.tsec').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.ntb').forEach(b=>b.classList.remove('active'));
@@ -875,12 +691,9 @@ function showMethod(id){
   document.querySelectorAll('.mtab').forEach(e=>e.classList.remove('active'));
   document.getElementById('method-'+id).classList.add('active');
   const idx=id==='serpapi'?0:1;
-  document.querySelectorAll('.mtab')[idx].classList.add('active',''+( id==='serpapi'?'gold':'purple'));
+  document.querySelectorAll('.mtab')[idx].classList.add('active',''+(id==='serpapi'?'gold':'purple'));
 }
 
-// ═══════════════════════════════════════════════
-// FORM
-// ═══════════════════════════════════════════════
 function setTrip(t){
   tripType=t;
   document.getElementById('btn-rt').classList.toggle('active',t==='rt');
@@ -903,16 +716,13 @@ function setFreq(min,el){
 }
 function prefill(){
   document.getElementById('cfg-chatid').value='8385884724';
-  toast('✅','Chat ID compilato! Inserisci il Token e salva.','ok');
+  toast('✅','Chat ID compilato!','ok');
 }
 function showGHWorkflow(){
   const w=document.getElementById('gh-workflow-wrap');
   w.style.display=w.style.display==='none'?'block':'none';
 }
 
-// ═══════════════════════════════════════════════
-// TELEGRAM
-// ═══════════════════════════════════════════════
 function saveTgConfig(){
   cfg.token=document.getElementById('cfg-token').value.trim().replace(/\s+/g,'');
   cfg.chatid=document.getElementById('cfg-chatid').value.trim().replace(/\s+/g,'');
@@ -927,7 +737,7 @@ function saveSerpApiConfig(){
   if(!cfg.serpapi){toast('⚠️','Inserisci la SerpApi Key!','warn');return;}
   localStorage.setItem('va_cfg',JSON.stringify(cfg));
   updateSerpStatus();
-  toast('✅','SerpApi configurata! Prezzi reali attivi.','ok');
+  toast('✅','SerpApi configurata!','ok');
   document.getElementById('serp-ok').style.display='flex';
 }
 
@@ -937,10 +747,10 @@ async function testSerpApi(){
   log('info','🧪 Test SerpApi: FCO → MXP');
   const res=await checkWithSerpApi({o:'FCO',d:'MXP',dep:document.getElementById('s-dep').value,tripType:'ow',cur:'EUR',ret:null},cfg.serpapi);
   if(res){
-    log('ok',`✅ SerpApi funziona! Esempio prezzo: €${res.price} (${res.airline})`);
-    toast('✅',`SerpApi OK! Prezzo esempio: €${res.price}`,'ok');
+    log('ok',`✅ SerpApi funziona! Esempio: €${res.price} (${res.airline})`);
+    toast('✅',`SerpApi OK! Prezzo: €${res.price}`,'ok');
   }else{
-    log('err','❌ SerpApi test fallito. Controlla la chiave.');
+    log('err','❌ SerpApi test fallito.');
     toast('❌','SerpApi test fallito. Chiave errata?','err');
   }
 }
@@ -960,13 +770,15 @@ async function testTelegram(){
   if(!cfg.token||!cfg.chatid){toast('⚠️','Prima configura Token e Chat ID!','warn');showTab('settings');return;}
   toast('📤','Invio messaggio di test…','ok');
   const now=new Date().toLocaleString('it');
-  const serpStatus=cfg.serpapi?'✅ SerpApi configurata (prezzi reali)':'⚠️ SerpApi non configurata (solo Gmail→Telegram)';
-  const msg=`✅ <b>VoLoAlert funziona!</b>\n\n`+
-    `⚙️ ${serpStatus}\n`+
-    `📅 Test del: ${now}\n\n`+
-    `Riceverai notifiche qui quando un volo scende sotto la tua soglia! ✈️`;
+  const serpStatus=cfg.serpapi?'✅ SerpApi configurata':'⚠️ SerpApi non configurata';
+  const msg=`✅ <b>VoLoAlert funziona!</b>
+
+⚙️ ${serpStatus}
+📅 Test del: ${now}
+
+Riceverai notifiche qui quando un volo scende sotto la tua soglia! ✈️`;
   const ok=await sendTelegram(msg);
-  if(ok){toast('🎉','Messaggio inviato! Controlla Telegram','ok');document.getElementById('cfg-ok').style.display='flex';}
+  if(ok){toast('🎉','Messaggio inviato!','ok');document.getElementById('cfg-ok').style.display='flex';}
   else toast('❌','Errore! Controlla Token e Chat ID','err');
 }
 
@@ -994,15 +806,12 @@ function updateQuotaDisplay(){
   document.getElementById('quota-card').style.display=cfg.serpapi?'block':'none';
 }
 
-// ═══════════════════════════════════════════════
-// GOOGLE FLIGHTS URL
-// ═══════════════════════════════════════════════
 function buildGF(){
   const o=document.getElementById('s-origin').value.trim();
   const d=document.getElementById('s-dest').value.trim();
   const dep=document.getElementById('s-dep').value;
   const ret=document.getElementById('s-ret').value;
-  const iata=s=>{const m=s.match(/\b([A-Z]{3})\b/);return m?m[1]:s.slice(0,3).toUpperCase();};
+  const iata=s=>{const m=s.match(/([A-Z]{3})/);return m?m[1]:s.slice(0,3).toUpperCase();};
   let url=`https://www.google.com/travel/flights#flt=${iata(o)}.${iata(d)}.${dep}`;
   if(tripType==='rt') url+=`*${iata(d)}.${iata(o)}.${ret}`;
   url+=`;c:EUR;e:1;sd:1;t:h`;
@@ -1015,9 +824,6 @@ function buildGFForAlert(a){
   return url;
 }
 
-// ═══════════════════════════════════════════════
-// CREATE ALERT
-// ═══════════════════════════════════════════════
 function createAlert(){
   const o=document.getElementById('s-origin').value.trim();
   const d=document.getElementById('s-dest').value.trim();
@@ -1050,9 +856,6 @@ function createAlert(){
   if(!cfg.token) updateTgWarning();
 }
 
-// ═══════════════════════════════════════════════
-// RENDER ALERTS
-// ═══════════════════════════════════════════════
 function renderAlerts(){
   const list=document.getElementById('alerts-list');
   const cnt=document.getElementById('alert-cnt');
@@ -1078,9 +881,6 @@ function renderAlerts(){
 }
 function delAlert(id){alerts=alerts.filter(a=>a.id!==id);save();renderAlerts();toast('🗑','Alert eliminato','warn');}
 
-// ═══════════════════════════════════════════════
-// MONITOR
-// ═══════════════════════════════════════════════
 function toggleMonitor(){if(monitorActive) stopMonitor();else startMonitor();}
 
 function startMonitor(){
@@ -1092,7 +892,7 @@ function startMonitor(){
   document.getElementById('mon-sub').textContent=`Ogni ${monitorFreq} min — ${alerts.length} alert${cfg.serpapi?' — SerpApi attiva':''}`;
   document.getElementById('live-indicator').style.display='flex';
   document.getElementById('countdown').style.display='block';
-  log('ok',`▶ Monitoraggio avviato — ${monitorFreq} min${cfg.serpapi?' — SerpApi: prezzi reali':' — Modalità: Google Flights manuale'}`);
+  log('ok',`▶ Monitoraggio avviato — ${monitorFreq} min`);
   toast('📡','Monitoraggio avviato!','ok');
   runCheck();
   monitorInterval=setInterval(runCheck,monitorFreq*60*1000);
@@ -1126,14 +926,12 @@ async function checkNow(id){
   await checkAlert(a);
 }
 
-// ─── PRICE CHECK ────────────────────────────────
 async function checkAlert(a){
   const sym=SYMS[a.cur]||a.cur;
   log('info',`  ↳ ${a.o}→${a.d} | Soglia: ${sym}${a.maxPrice}`);
   if(cfg.serpapi){
-    // Controlla quota
     if(serpQuota.used>=100){
-      log('warn','  ⚠️ Quota SerpApi mensile esaurita (100/100). Riprenderà il mese prossimo.');
+      log('warn','  ⚠️ Quota SerpApi mensile esaurita.');
       return;
     }
     const result=await checkWithSerpApi(a,cfg.serpapi);
@@ -1141,27 +939,20 @@ async function checkAlert(a){
       serpQuota.used++;
       localStorage.setItem('va_serpquota',JSON.stringify(serpQuota));
       updateQuotaDisplay();
-      log('info',`  💰 Prezzo trovato: ${sym}${result.price} (${result.airline}) — quota usata: ${serpQuota.used}/100`);
-      if(result.price<=a.maxPrice){
-        await notifyFound(a,result.price,result.airline||'N/D',result.stops||0);
-      }else{
-        log('info',`  ℹ️  ${sym}${result.price} ancora sopra soglia ${sym}${a.maxPrice}`);
-      }
+      log('info',`  💰 Prezzo: ${sym}${result.price} (${result.airline}) — quota: ${serpQuota.used}/100`);
+      if(result.price<=a.maxPrice) await notifyFound(a,result.price,result.airline||'N/D',result.stops||0);
+      else log('info',`  ℹ️  ${sym}${result.price} sopra soglia ${sym}${a.maxPrice}`);
       return;
     }
   }
-  // Fallback
   log('warn',`  ⚠️ SerpApi non disponibile. Controlla manualmente → ${buildGFForAlert(a)}`);
 }
 
 async function checkWithSerpApi(a,key){
   try{
     const params=new URLSearchParams({
-      engine:'google_flights',
-      departure_id:a.o,arrival_id:a.d,
-      outbound_date:a.dep,
-      currency:a.cur,hl:'it',
-      api_key:key,
+      engine:'google_flights',departure_id:a.o,arrival_id:a.d,
+      outbound_date:a.dep,currency:a.cur,hl:'it',api_key:key,
       type:a.tripType==='rt'?'1':'2'
     });
     if(a.ret&&a.tripType==='rt') params.set('return_date',a.ret);
@@ -1183,19 +974,25 @@ async function notifyFound(a,price,airline,stops){
   const sym=SYMS[a.cur]||a.cur;
   const risparmio=a.maxPrice-price;
   const now=new Date().toLocaleString('it');
-  log('found',`  🎉 TROVATO! ${a.o}→${a.d} a ${sym}${price} — risparmio ${sym}${risparmio}`);
-  const msg=
-    `🚨 <b>VOLO TROVATO SOTTO SOGLIA!</b>\n\n`+
-    `✈️ <b>${a.o} → ${a.d}</b>\n`+
-    `📅 Andata: ${a.dep}\n`+
-    (a.ret?`📅 Ritorno: ${a.ret}\n`:'')+
-    `💰 Prezzo: <b>${sym}${price}</b>\n`+
-    `🎯 Soglia: ${sym}${a.maxPrice}\n`+
-    `💚 Risparmi: <b>${sym}${risparmio}!</b>\n`+
-    `🛫 Compagnia: ${airline}\n`+
-    `${stops===0?'✈️ Diretto':`🔄 ${stops} scalo/i`}\n`+
-    (a.note?`📝 ${a.note}\n`:'')+
-    `\n👉 ${buildGFForAlert(a)}\n\n⏰ ${now}`;
+  log('found',`  🎉 TROVATO! ${a.o}→${a.d} a ${sym}${price}`);
+  const msg=`🚨 <b>VOLO TROVATO SOTTO SOGLIA!</b>
+
+✈️ <b>${a.o} → ${a.d}</b>
+📅 Andata: ${a.dep}
+${a.ret?`📅 Ritorno: ${a.ret}
+`:''}`+
+    `💰 Prezzo: <b>${sym}${price}</b>
+🎯 Soglia: ${sym}${a.maxPrice}
+💚 Risparmi: <b>${sym}${risparmio}!</b>
+`+
+    `🛫 Compagnia: ${airline}
+${stops===0?'✈️ Diretto':`🔄 ${stops} scalo/i`}
+${a.note?`📝 ${a.note}
+`:''}
+`+
+    `👉 ${buildGFForAlert(a)}
+
+⏰ ${now}`;
   const ok=await sendTelegram(msg);
   if(ok){
     toast('🎉',`Trovato ${sym}${price} per ${a.o}→${a.d}!`,'ok');
@@ -1204,9 +1001,6 @@ async function notifyFound(a,price,airline,stops){
   }
 }
 
-// ═══════════════════════════════════════════════
-// HISTORY
-// ═══════════════════════════════════════════════
 function renderHistory(){
   const list=document.getElementById('history-list'),cnt=document.getElementById('hist-cnt');
   cnt.textContent=history_log.length;
@@ -1222,9 +1016,6 @@ function renderHistory(){
     </div>`).join('');
 }
 
-// ═══════════════════════════════════════════════
-// LOG
-// ═══════════════════════════════════════════════
 function log(type,msg){
   const box=document.getElementById('log-box');
   const div=document.createElement('div');div.className=`log-line log-${type}`;
@@ -1233,15 +1024,9 @@ function log(type,msg){
 }
 function clearLog(){document.getElementById('log-box').innerHTML='<div class="log-line log-info">— Log pulito —</div>';}
 
-// ═══════════════════════════════════════════════
-// SAVE
-// ═══════════════════════════════════════════════
 function save(){localStorage.setItem('va_alerts',JSON.stringify(alerts));}
 function saveHistory(){localStorage.setItem('va_history',JSON.stringify(history_log));}
 
-// ═══════════════════════════════════════════════
-// EXPORT
-// ═══════════════════════════════════════════════
 function exportAlerts(){
   if(!alerts.length){toast('⚠️','Crea almeno un alert prima!','warn');return;}
   const blob=new Blob([JSON.stringify(alerts,null,2)],{type:'application/json'});
@@ -1252,32 +1037,17 @@ function exportAlerts(){
   log('ok','📥 alerts.json esportato');
 }
 
-// ═══════════════════════════════════════════════
-// COPY HELPERS
-// ═══════════════════════════════════════════════
 function copyGASCode(){
-  // Personalizza con i dati salvati se disponibili
   let code=document.getElementById('gas-code').textContent;
   if(cfg.token) code=code.replace('IL_TUO_TOKEN_QUI',cfg.token);
   if(cfg.chatid) code=code.replace('IL_TUO_CHAT_ID_QUI',cfg.chatid);
-  navigator.clipboard.writeText(code).then(()=>{
-    toast('📋','Codice copiato! Incollalo su script.google.com','ok');
-  }).catch(()=>{
-    // fallback
-    const ta=document.createElement('textarea');ta.value=code;
-    document.body.appendChild(ta);ta.select();document.execCommand('copy');
-    document.body.removeChild(ta);
-    toast('📋','Codice copiato!','ok');
-  });
+  navigator.clipboard.writeText(code).then(()=>toast('📋','Codice copiato!','ok')).catch(()=>toast('⚠️','Copia manuale necessaria','warn'));
 }
 function copyGHWorkflow(){
   const code=document.getElementById('gh-workflow').textContent;
   navigator.clipboard.writeText(code).then(()=>toast('📋','Workflow copiato!','ok')).catch(()=>toast('⚠️','Copia manuale necessaria','warn'));
 }
 
-// ═══════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════
 let toastTimer=null;
 function toast(ic,msg,type='ok'){
   const el=document.getElementById('toast');
@@ -1289,14 +1059,15 @@ function toast(ic,msg,type='ok'){
 }
 
 // ═══════════════════════════════════════════════
-// AIRPORT AUTOCOMPLETE
+// AIRPORT AUTOCOMPLETE — 486 aeroporti nel mondo
 // ═══════════════════════════════════════════════
 const AIRPORTS=[
+  // ITALIA
   {iata:'FCO',city:'Roma',name:'Fiumicino',country:'Italia',flag:'🇮🇹'},
   {iata:'CIA',city:'Roma',name:'Ciampino',country:'Italia',flag:'🇮🇹'},
   {iata:'MXP',city:'Milano',name:'Malpensa',country:'Italia',flag:'🇮🇹'},
   {iata:'LIN',city:'Milano',name:'Linate',country:'Italia',flag:'🇮🇹'},
-  {iata:'BGY',city:'Milano',name:'Bergamo',country:'Italia',flag:'🇮🇹'},
+  {iata:'BGY',city:'Milano',name:'Bergamo Orio al Serio',country:'Italia',flag:'🇮🇹'},
   {iata:'NAP',city:'Napoli',name:'Capodichino',country:'Italia',flag:'🇮🇹'},
   {iata:'VCE',city:'Venezia',name:'Marco Polo',country:'Italia',flag:'🇮🇹'},
   {iata:'BLQ',city:'Bologna',name:'Marconi',country:'Italia',flag:'🇮🇹'},
@@ -1309,51 +1080,497 @@ const AIRPORTS=[
   {iata:'CAG',city:'Cagliari',name:'Elmas',country:'Italia',flag:'🇮🇹'},
   {iata:'OLB',city:'Olbia',name:'Costa Smeralda',country:'Italia',flag:'🇮🇹'},
   {iata:'VRN',city:'Verona',name:'Villafranca',country:'Italia',flag:'🇮🇹'},
+  {iata:'REG',city:'Reggio Calabria',name:'Tito Minniti',country:'Italia',flag:'🇮🇹'},
+  {iata:'BDS',city:'Brindisi',name:'Papola Casale',country:'Italia',flag:'🇮🇹'},
+  {iata:'SUF',city:'Lamezia Terme',name:'Lamezia Terme',country:'Italia',flag:'🇮🇹'},
+  {iata:'AOI',city:'Ancona',name:'Falconara',country:'Italia',flag:'🇮🇹'},
+  {iata:'PEG',city:'Perugia',name:'San Francesco',country:'Italia',flag:'🇮🇹'},
+  {iata:'PMF',city:'Parma',name:'Giuseppe Verdi',country:'Italia',flag:'🇮🇹'},
+  {iata:'TPS',city:'Trapani',name:'Birgi',country:'Italia',flag:'🇮🇹'},
+  {iata:'PNL',city:'Pantelleria',name:'Pantelleria',country:'Italia',flag:'🇮🇹'},
+  {iata:'LMP',city:'Lampedusa',name:'Lampedusa',country:'Italia',flag:'🇮🇹'},
+  {iata:'RMI',city:'Rimini',name:'Federico Fellini',country:'Italia',flag:'🇮🇹'},
+  {iata:'TSF',city:'Treviso',name:'Sant Angelo',country:'Italia',flag:'🇮🇹'},
+  {iata:'GOA',city:'Genova',name:'Cristoforo Colombo',country:'Italia',flag:'🇮🇹'},
+  {iata:'QLT',city:'Latina',name:'Latina',country:'Italia',flag:'🇮🇹'},
+  // EUROPA - FRANCIA
   {iata:'CDG',city:'Parigi',name:'Charles de Gaulle',country:'Francia',flag:'🇫🇷'},
   {iata:'ORY',city:'Parigi',name:'Orly',country:'Francia',flag:'🇫🇷'},
   {iata:'NCE',city:'Nizza',name:'Côte d\'Azur',country:'Francia',flag:'🇫🇷'},
   {iata:'LYS',city:'Lione',name:'Saint-Exupéry',country:'Francia',flag:'🇫🇷'},
   {iata:'MRS',city:'Marsiglia',name:'Provence',country:'Francia',flag:'🇫🇷'},
+  {iata:'BOD',city:'Bordeaux',name:'Mérignac',country:'Francia',flag:'🇫🇷'},
+  {iata:'TLS',city:'Tolosa',name:'Blagnac',country:'Francia',flag:'🇫🇷'},
+  {iata:'NTE',city:'Nantes',name:'Atlantique',country:'Francia',flag:'🇫🇷'},
+  {iata:'SXB',city:'Strasburgo',name:'Entzheim',country:'Francia',flag:'🇫🇷'},
+  {iata:'BIQ',city:'Biarritz',name:'Pays Basque',country:'Francia',flag:'🇫🇷'},
+  {iata:'MPL',city:'Montpellier',name:'Méditerranée',country:'Francia',flag:'🇫🇷'},
+  {iata:'RNS',city:'Rennes',name:'Saint-Jacques',country:'Francia',flag:'🇫🇷'},
+  // UK
   {iata:'LHR',city:'Londra',name:'Heathrow',country:'UK',flag:'🇬🇧'},
   {iata:'LGW',city:'Londra',name:'Gatwick',country:'UK',flag:'🇬🇧'},
   {iata:'STN',city:'Londra',name:'Stansted',country:'UK',flag:'🇬🇧'},
+  {iata:'LTN',city:'Londra',name:'Luton',country:'UK',flag:'🇬🇧'},
+  {iata:'LCY',city:'Londra',name:'City Airport',country:'UK',flag:'🇬🇧'},
+  {iata:'MAN',city:'Manchester',name:'Manchester',country:'UK',flag:'🇬🇧'},
+  {iata:'EDI',city:'Edimburgo',name:'Edinburgh',country:'UK',flag:'🇬🇧'},
+  {iata:'GLA',city:'Glasgow',name:'Glasgow',country:'UK',flag:'🇬🇧'},
+  {iata:'BHX',city:'Birmingham',name:'Birmingham',country:'UK',flag:'🇬🇧'},
+  {iata:'BRS',city:'Bristol',name:'Bristol',country:'UK',flag:'🇬🇧'},
+  {iata:'NCL',city:'Newcastle',name:'Newcastle',country:'UK',flag:'🇬🇧'},
+  {iata:'LPL',city:'Liverpool',name:'John Lennon',country:'UK',flag:'🇬🇧'},
+  {iata:'BFS',city:'Belfast',name:'Belfast Intl',country:'UK',flag:'🇬🇧'},
+  // SPAGNA
   {iata:'MAD',city:'Madrid',name:'Barajas',country:'Spagna',flag:'🇪🇸'},
   {iata:'BCN',city:'Barcellona',name:'El Prat',country:'Spagna',flag:'🇪🇸'},
   {iata:'PMI',city:'Palma',name:'Son Sant Joan',country:'Spagna',flag:'🇪🇸'},
   {iata:'IBZ',city:'Ibiza',name:'Ibiza',country:'Spagna',flag:'🇪🇸'},
   {iata:'TFS',city:'Tenerife',name:'Tenerife Sur',country:'Spagna',flag:'🇪🇸'},
   {iata:'LPA',city:'Gran Canaria',name:'Las Palmas',country:'Spagna',flag:'🇪🇸'},
+  {iata:'AGP',city:'Malaga',name:'Costa del Sol',country:'Spagna',flag:'🇪🇸'},
+  {iata:'ALC',city:'Alicante',name:'El Altet',country:'Spagna',flag:'🇪🇸'},
+  {iata:'VLC',city:'Valencia',name:'Valencia',country:'Spagna',flag:'🇪🇸'},
+  {iata:'SVQ',city:'Siviglia',name:'San Pablo',country:'Spagna',flag:'🇪🇸'},
+  {iata:'BIO',city:'Bilbao',name:'Loiu',country:'Spagna',flag:'🇪🇸'},
+  {iata:'ACE',city:'Lanzarote',name:'Arrecife',country:'Spagna',flag:'🇪🇸'},
+  {iata:'FUE',city:'Fuerteventura',name:'Fuerteventura',country:'Spagna',flag:'🇪🇸'},
+  {iata:'TFN',city:'Tenerife',name:'Tenerife Norte',country:'Spagna',flag:'🇪🇸'},
+  {iata:'MAH',city:'Minorca',name:'Mahon',country:'Spagna',flag:'🇪🇸'},
+  {iata:'SDR',city:'Santander',name:'Santander',country:'Spagna',flag:'🇪🇸'},
+  {iata:'VGO',city:'Vigo',name:'Vigo',country:'Spagna',flag:'🇪🇸'},
+  // GERMANIA
   {iata:'FRA',city:'Francoforte',name:'Frankfurt',country:'Germania',flag:'🇩🇪'},
   {iata:'MUC',city:'Monaco',name:'Franz Josef Strauss',country:'Germania',flag:'🇩🇪'},
   {iata:'BER',city:'Berlino',name:'Brandenburg',country:'Germania',flag:'🇩🇪'},
-  {iata:'JFK',city:'New York',name:'Kennedy',country:'USA',flag:'🇺🇸'},
-  {iata:'LAX',city:'Los Angeles',name:'Los Angeles Intl',country:'USA',flag:'🇺🇸'},
-  {iata:'MIA',city:'Miami',name:'Miami Intl',country:'USA',flag:'🇺🇸'},
-  {iata:'DXB',city:'Dubai',name:'Dubai Intl',country:'Emirati Arabi',flag:'🇦🇪'},
-  {iata:'DOH',city:'Doha',name:'Hamad Intl',country:'Qatar',flag:'🇶🇦'},
-  {iata:'IST',city:'Istanbul',name:'Istanbul',country:'Turchia',flag:'🇹🇷'},
-  {iata:'CAI',city:'Il Cairo',name:'Cairo Intl',country:'Egitto',flag:'🇪🇬'},
-  {iata:'CMN',city:'Casablanca',name:'Mohammed V',country:'Marocco',flag:'🇲🇦'},
-  {iata:'RAK',city:'Marrakech',name:'Menara',country:'Marocco',flag:'🇲🇦'},
-  {iata:'ALG',city:'Algeri',name:'Houari Boumediene',country:'Algeria',flag:'🇩🇿'},
-  {iata:'ORN',city:'Orano',name:'Ahmed Ben Bella',country:'Algeria',flag:'🇩🇿'},
-  {iata:'TUN',city:'Tunisi',name:'Carthage',country:'Tunisia',flag:'🇹🇳'},
-  {iata:'NRT',city:'Tokyo',name:'Narita',country:'Giappone',flag:'🇯🇵'},
-  {iata:'SIN',city:'Singapore',name:'Changi',country:'Singapore',flag:'🇸🇬'},
-  {iata:'BKK',city:'Bangkok',name:'Suvarnabhumi',country:'Tailandia',flag:'🇹🇭'},
-  {iata:'DPS',city:'Bali',name:'Ngurah Rai',country:'Indonesia',flag:'🇮🇩'},
-  {iata:'MLE',city:'Malé',name:'Velana Intl',country:'Maldive',flag:'🇲🇻'},
-  {iata:'AMS',city:'Amsterdam',name:'Schiphol',country:'Olanda',flag:'🇳🇱'},
-  {iata:'BRU',city:'Bruxelles',name:'Zaventem',country:'Belgio',flag:'🇧🇪'},
-  {iata:'ZRH',city:'Zurigo',name:'Kloten',country:'Svizzera',flag:'🇨🇭'},
-  {iata:'VIE',city:'Vienna',name:'Schwechat',country:'Austria',flag:'🇦🇹'},
-  {iata:'ATH',city:'Atene',name:'Eleftherios Venizelos',country:'Grecia',flag:'🇬🇷'},
+  {iata:'DUS',city:'Düsseldorf',name:'Düsseldorf',country:'Germania',flag:'🇩🇪'},
+  {iata:'HAM',city:'Amburgo',name:'Hamburg',country:'Germania',flag:'🇩🇪'},
+  {iata:'STR',city:'Stoccarda',name:'Stuttgart',country:'Germania',flag:'🇩🇪'},
+  {iata:'CGN',city:'Colonia',name:'Bonn',country:'Germania',flag:'🇩🇪'},
+  {iata:'NUE',city:'Norimberga',name:'Nuremberg',country:'Germania',flag:'🇩🇪'},
+  {iata:'LEJ',city:'Lipsia',name:'Halle',country:'Germania',flag:'🇩🇪'},
+  {iata:'HAJ',city:'Hannover',name:'Hannover',country:'Germania',flag:'🇩🇪'},
+  {iata:'BRE',city:'Brema',name:'Bremen',country:'Germania',flag:'🇩🇪'},
+  {iata:'FKB',city:'Karlsruhe',name:'Baden-Airpark',country:'Germania',flag:'🇩🇪'},
+  // PORTOGALLO
   {iata:'LIS',city:'Lisbona',name:'Humberto Delgado',country:'Portogallo',flag:'🇵🇹'},
-  {iata:'DUB',city:'Dublino',name:'Dublin',country:'Irlanda',flag:'🇮🇪'},
-  {iata:'GRU',city:'São Paulo',name:'Guarulhos',country:'Brasile',flag:'🇧🇷'},
-  {iata:'CUN',city:'Cancún',name:'Cancún Intl',country:'Messico',flag:'🇲🇽'},
+  {iata:'OPO',city:'Porto',name:'Francisco Sá Carneiro',country:'Portogallo',flag:'🇵🇹'},
+  {iata:'FAO',city:'Faro',name:'Faro',country:'Portogallo',flag:'🇵🇹'},
+  {iata:'FNC',city:'Funchal',name:'Madeira',country:'Portogallo',flag:'🇵🇹'},
+  {iata:'PDL',city:'Ponta Delgada',name:'João Paulo II',country:'Portogallo',flag:'🇵🇹'},
+  // GRECIA
+  {iata:'ATH',city:'Atene',name:'Eleftherios Venizelos',country:'Grecia',flag:'🇬🇷'},
+  {iata:'SKG',city:'Salonicco',name:'Makedonia',country:'Grecia',flag:'🇬🇷'},
+  {iata:'HER',city:'Creta',name:'Heraklion',country:'Grecia',flag:'🇬🇷'},
+  {iata:'RHO',city:'Rodi',name:'Diagoras',country:'Grecia',flag:'🇬🇷'},
+  {iata:'CFU',city:'Corfù',name:'Ioannis Kapodistrias',country:'Grecia',flag:'🇬🇷'},
+  {iata:'MJT',city:'Lesbo',name:'Mytilene',country:'Grecia',flag:'🇬🇷'},
+  {iata:'KGS',city:'Kos',name:'Hippocrates',country:'Grecia',flag:'🇬🇷'},
+  {iata:'ZTH',city:'Zante',name:'Zakynthos',country:'Grecia',flag:'🇬🇷'},
+  {iata:'SMI',city:'Samo',name:'Aristarchos',country:'Grecia',flag:'🇬🇷'},
+  {iata:'JTR',city:'Santorini',name:'Santorini',country:'Grecia',flag:'🇬🇷'},
+  {iata:'JMK',city:'Mykonos',name:'Mykonos',country:'Grecia',flag:'🇬🇷'},
+  {iata:'CHQ',city:'Creta',name:'Chania',country:'Grecia',flag:'🇬🇷'},
+  // OLANDA
+  {iata:'AMS',city:'Amsterdam',name:'Schiphol',country:'Olanda',flag:'🇳🇱'},
+  {iata:'EIN',city:'Eindhoven',name:'Eindhoven',country:'Olanda',flag:'🇳🇱'},
+  {iata:'RTM',city:'Rotterdam',name:'The Hague',country:'Olanda',flag:'🇳🇱'},
+  // BELGIO
+  {iata:'BRU',city:'Bruxelles',name:'Zaventem',country:'Belgio',flag:'🇧🇪'},
+  {iata:'CRL',city:'Bruxelles',name:'Charleroi',country:'Belgio',flag:'🇧🇪'},
+  {iata:'LGG',city:'Liegi',name:'Liège',country:'Belgio',flag:'🇧🇪'},
+  // SVIZZERA
+  {iata:'ZRH',city:'Zurigo',name:'Kloten',country:'Svizzera',flag:'🇨🇭'},
+  {iata:'GVA',city:'Ginevra',name:'Cointrin',country:'Svizzera',flag:'🇨🇭'},
+  {iata:'BSL',city:'Basilea',name:'EuroAirport',country:'Svizzera',flag:'🇨🇭'},
+  // AUSTRIA
+  {iata:'VIE',city:'Vienna',name:'Schwechat',country:'Austria',flag:'🇦🇹'},
+  {iata:'SZG',city:'Salisburgo',name:'Salzburg',country:'Austria',flag:'🇦🇹'},
+  {iata:'INN',city:'Innsbruck',name:'Innsbruck',country:'Austria',flag:'🇦🇹'},
+  {iata:'GRZ',city:'Graz',name:'Thalerhof',country:'Austria',flag:'🇦🇹'},
+  // SCANDINAVIA
+  {iata:'ARN',city:'Stoccolma',name:'Arlanda',country:'Svezia',flag:'🇸🇪'},
+  {iata:'GOT',city:'Göteborg',name:'Landvetter',country:'Svezia',flag:'🇸🇪'},
+  {iata:'MMX',city:'Malmö',name:'Malmö',country:'Svezia',flag:'🇸🇪'},
+  {iata:'CPH',city:'Copenaghen',name:'Kastrup',country:'Danimarca',flag:'🇩🇰'},
+  {iata:'AAL',city:'Aalborg',name:'Aalborg',country:'Danimarca',flag:'🇩🇰'},
+  {iata:'OSL',city:'Oslo',name:'Gardermoen',country:'Norvegia',flag:'🇳🇴'},
+  {iata:'BGO',city:'Bergen',name:'Flesland',country:'Norvegia',flag:'🇳🇴'},
+  {iata:'TRD',city:'Trondheim',name:'Trondheim',country:'Norvegia',flag:'🇳🇴'},
+  {iata:'SVG',city:'Stavanger',name:'Sola',country:'Norvegia',flag:'🇳🇴'},
+  {iata:'HEL',city:'Helsinki',name:'Vantaa',country:'Finlandia',flag:'🇫🇮'},
+  {iata:'TMP',city:'Tampere',name:'Pirkkala',country:'Finlandia',flag:'🇫🇮'},
+  {iata:'RVN',city:'Rovaniemi',name:'Rovaniemi',country:'Finlandia',flag:'🇫🇮'},
+  {iata:'REK',city:'Reykjavik',name:'Keflavik',country:'Islanda',flag:'🇮🇸'},
+  // EUROPA EST
+  {iata:'WAW',city:'Varsavia',name:'Chopin',country:'Polonia',flag:'🇵🇱'},
+  {iata:'KRK',city:'Cracovia',name:'John Paul II',country:'Polonia',flag:'🇵🇱'},
+  {iata:'GDN',city:'Danzica',name:'Lech Walesa',country:'Polonia',flag:'🇵🇱'},
+  {iata:'WRO',city:'Breslavia',name:'Copernicus',country:'Polonia',flag:'🇵🇱'},
+  {iata:'PRG',city:'Praga',name:'Václav Havel',country:'Rep. Ceca',flag:'🇨🇿'},
+  {iata:'BRQ',city:'Brno',name:'Brno-Turany',country:'Rep. Ceca',flag:'🇨🇿'},
+  {iata:'BUD',city:'Budapest',name:'Ferenc Liszt',country:'Ungheria',flag:'🇭🇺'},
+  {iata:'OTP',city:'Bucarest',name:'Henri Coanda',country:'Romania',flag:'🇷🇴'},
+  {iata:'CLJ',city:'Cluj-Napoca',name:'Cluj',country:'Romania',flag:'🇷🇴'},
+  {iata:'SOF',city:'Sofia',name:'Sofia',country:'Bulgaria',flag:'🇧🇬'},
+  {iata:'VAR',city:'Varna',name:'Varna',country:'Bulgaria',flag:'🇧🇬'},
+  {iata:'BOJ',city:'Burgas',name:'Burgas',country:'Bulgaria',flag:'🇧🇬'},
+  {iata:'ZAG',city:'Zagabria',name:'Franjo Tuđman',country:'Croazia',flag:'🇭🇷'},
+  {iata:'SPU',city:'Spalato',name:'Split',country:'Croazia',flag:'🇭🇷'},
+  {iata:'DBV',city:'Dubrovnik',name:'Dubrovnik',country:'Croazia',flag:'🇭🇷'},
+  {iata:'ZAD',city:'Zara',name:'Zadar',country:'Croazia',flag:'🇭🇷'},
+  {iata:'BEG',city:'Belgrado',name:'Nikola Tesla',country:'Serbia',flag:'🇷🇸'},
+  {iata:'LJU',city:'Lubiana',name:'Jože Pučnik',country:'Slovenia',flag:'🇸🇮'},
+  {iata:'SKP',city:'Skopje',name:'Alexander the Great',country:'Macedonia',flag:'🇲🇰'},
+  {iata:'TIA',city:'Tirana',name:'Nënë Tereza',country:'Albania',flag:'🇦🇱'},
+  {iata:'TGD',city:'Podgorica',name:'Podgorica',country:'Montenegro',flag:'🇲🇪'},
+  {iata:'SJJ',city:'Sarajevo',name:'Sarajevo',country:'Bosnia',flag:'🇧🇦'},
+  {iata:'RIX',city:'Riga',name:'Riga',country:'Lettonia',flag:'🇱🇻'},
+  {iata:'TLL',city:'Tallinn',name:'Lennart Meri',country:'Estonia',flag:'🇪🇪'},
+  {iata:'VNO',city:'Vilnius',name:'Vilnius',country:'Lituania',flag:'🇱🇹'},
+  {iata:'KIV',city:'Chișinău',name:'Chișinău',country:'Moldova',flag:'🇲🇩'},
+  {iata:'KBP',city:'Kiev',name:'Boryspil',country:'Ucraina',flag:'🇺🇦'},
+  {iata:'SVO',city:'Mosca',name:'Sheremetyevo',country:'Russia',flag:'🇷🇺'},
+  {iata:'DME',city:'Mosca',name:'Domodedovo',country:'Russia',flag:'🇷🇺'},
+  {iata:'LED',city:'San Pietroburgo',name:'Pulkovo',country:'Russia',flag:'🇷🇺'},
+  // TURCHIA
+  {iata:'IST',city:'Istanbul',name:'Istanbul',country:'Turchia',flag:'🇹🇷'},
+  {iata:'SAW',city:'Istanbul',name:'Sabiha Gökçen',country:'Turchia',flag:'🇹🇷'},
+  {iata:'AYT',city:'Antalya',name:'Antalya',country:'Turchia',flag:'🇹🇷'},
+  {iata:'ADB',city:'Smirne',name:'Adnan Menderes',country:'Turchia',flag:'🇹🇷'},
+  {iata:'ESB',city:'Ankara',name:'Esenboğa',country:'Turchia',flag:'🇹🇷'},
+  {iata:'DLM',city:'Dalaman',name:'Dalaman',country:'Turchia',flag:'🇹🇷'},
+  {iata:'BJV',city:'Bodrum',name:'Milas-Bodrum',country:'Turchia',flag:'🇹🇷'},
+  {iata:'GZT',city:'Gaziantep',name:'Oğuzeli',country:'Turchia',flag:'🇹🇷'},
+  {iata:'TZX',city:'Trebisonda',name:'Trabzon',country:'Turchia',flag:'🇹🇷'},
+  // MEDIO ORIENTE
+  {iata:'DXB',city:'Dubai',name:'Dubai Intl',country:'Emirati Arabi',flag:'🇦🇪'},
+  {iata:'AUH',city:'Abu Dhabi',name:'Zayed Intl',country:'Emirati Arabi',flag:'🇦🇪'},
+  {iata:'SHJ',city:'Sharjah',name:'Sharjah',country:'Emirati Arabi',flag:'🇦🇪'},
+  {iata:'DOH',city:'Doha',name:'Hamad Intl',country:'Qatar',flag:'🇶🇦'},
+  {iata:'KWI',city:'Kuwait City',name:'Kuwait Intl',country:'Kuwait',flag:'🇰🇼'},
+  {iata:'BAH',city:'Manama',name:'Bahrain Intl',country:'Bahrain',flag:'🇧🇭'},
+  {iata:'MCT',city:'Muscat',name:'Muscat Intl',country:'Oman',flag:'🇴🇲'},
+  {iata:'RUH',city:'Riyadh',name:'King Khalid',country:'Arabia Saudita',flag:'🇸🇦'},
+  {iata:'JED',city:'Jeddah',name:'King Abdulaziz',country:'Arabia Saudita',flag:'🇸🇦'},
+  {iata:'MED',city:'Medina',name:'Prince Mohammad',country:'Arabia Saudita',flag:'🇸🇦'},
+  {iata:'DMM',city:'Dammam',name:'King Fahd',country:'Arabia Saudita',flag:'🇸🇦'},
+  {iata:'TLV',city:'Tel Aviv',name:'Ben Gurion',country:'Israele',flag:'🇮🇱'},
+  {iata:'AMM',city:'Amman',name:'Queen Alia',country:'Giordania',flag:'🇯🇴'},
+  {iata:'BEY',city:'Beirut',name:'Rafic Hariri',country:'Libano',flag:'🇱🇧'},
+  {iata:'BGW',city:'Baghdad',name:'Baghdad Intl',country:'Iraq',flag:'🇮🇶'},
+  {iata:'IKA',city:'Teheran',name:'Imam Khomeini',country:'Iran',flag:'🇮🇷'},
+  {iata:'THR',city:'Teheran',name:'Mehrabad',country:'Iran',flag:'🇮🇷'},
+  {iata:'MHD',city:'Mashhad',name:'Shahid Hasheminejad',country:'Iran',flag:'🇮🇷'},
+  {iata:'GYD',city:'Baku',name:'Heydar Aliyev',country:'Azerbaigian',flag:'🇦🇿'},
+  {iata:'EVN',city:'Yerevan',name:'Zvartnots',country:'Armenia',flag:'🇦🇲'},
+  {iata:'TBS',city:'Tbilisi',name:'Shota Rustaveli',country:'Georgia',flag:'🇬🇪'},
+  // AFRICA NORD
+  {iata:'CAI',city:'Il Cairo',name:'Cairo Intl',country:'Egitto',flag:'🇪🇬'},
   {iata:'HRG',city:'Hurghada',name:'Hurghada',country:'Egitto',flag:'🇪🇬'},
   {iata:'SSH',city:'Sharm el-Sheikh',name:'Sharm el-Sheikh',country:'Egitto',flag:'🇪🇬'},
+  {iata:'LXR',city:'Luxor',name:'Luxor',country:'Egitto',flag:'🇪🇬'},
+  {iata:'ASW',city:'Assuan',name:'Aswan',country:'Egitto',flag:'🇪🇬'},
+  {iata:'CMN',city:'Casablanca',name:'Mohammed V',country:'Marocco',flag:'🇲🇦'},
+  {iata:'RAK',city:'Marrakech',name:'Menara',country:'Marocco',flag:'🇲🇦'},
+  {iata:'RBA',city:'Rabat',name:'Salé',country:'Marocco',flag:'🇲🇦'},
+  {iata:'FEZ',city:'Fez',name:'Saïss',country:'Marocco',flag:'🇲🇦'},
+  {iata:'AGA',city:'Agadir',name:'Al Massira',country:'Marocco',flag:'🇲🇦'},
+  {iata:'TNG',city:'Tangeri',name:'Ibn Battouta',country:'Marocco',flag:'🇲🇦'},
+  {iata:'OUD',city:'Oujda',name:'Angads',country:'Marocco',flag:'🇲🇦'},
+  {iata:'ALG',city:'Algeri',name:'Houari Boumediene',country:'Algeria',flag:'🇩🇿'},
+  {iata:'ORN',city:'Orano',name:'Ahmed Ben Bella',country:'Algeria',flag:'🇩🇿'},
+  {iata:'CZL',city:'Costantina',name:'Mohamed Boudiaf',country:'Algeria',flag:'🇩🇿'},
+  {iata:'AAE',city:'Annaba',name:'Rabah Bitat',country:'Algeria',flag:'🇩🇿'},
+  {iata:'TLM',city:'Tlemcen',name:'Zenata',country:'Algeria',flag:'🇩🇿'},
+  {iata:'BJA',city:'Bejaïa',name:'Soummam',country:'Algeria',flag:'🇩🇿'},
+  {iata:'BSK',city:'Biskra',name:'Mohamed Khider',country:'Algeria',flag:'🇩🇿'},
+  {iata:'TMR',city:'Tamanrasset',name:'Aguenar',country:'Algeria',flag:'🇩🇿'},
+  {iata:'GJL',city:'Jijel',name:'Ferhat Abbas',country:'Algeria',flag:'🇩🇿'},
+  {iata:'TUN',city:'Tunisi',name:'Carthage',country:'Tunisia',flag:'🇹🇳'},
+  {iata:'MIR',city:'Monastir',name:'Habib Bourguiba',country:'Tunisia',flag:'🇹🇳'},
+  {iata:'DJE',city:'Djerba',name:'Zarzis',country:'Tunisia',flag:'🇹🇳'},
+  {iata:'TBJ',city:'Tabarka',name:'Tabarka',country:'Tunisia',flag:'🇹🇳'},
+  {iata:'TRI',city:'Tripoli',name:'Mitiga',country:'Libia',flag:'🇱🇾'},
+  {iata:'KHT',city:'Khartoum',name:'Khartoum Intl',country:'Sudan',flag:'🇸🇩'},
+  // AFRICA SUB-SAHARIANA
+  {iata:'LOS',city:'Lagos',name:'Murtala Muhammed',country:'Nigeria',flag:'🇳🇬'},
+  {iata:'ABV',city:'Abuja',name:'Nnamdi Azikiwe',country:'Nigeria',flag:'🇳🇬'},
+  {iata:'KAN',city:'Kano',name:'Aminu Kano',country:'Nigeria',flag:'🇳🇬'},
+  {iata:'ACC',city:'Accra',name:'Kotoka',country:'Ghana',flag:'🇬🇭'},
+  {iata:'ABJ',city:'Abidjan',name:'Felix Houphouet-Boigny',country:'Costa d\'Avorio',flag:'🇨🇮'},
+  {iata:'DKR',city:'Dakar',name:'Blaise Diagne',country:'Senegal',flag:'🇸🇳'},
+  {iata:'CMN',city:'Casablanca',name:'Mohammed V',country:'Marocco',flag:'🇲🇦'},
+  {iata:'NBO',city:'Nairobi',name:'Jomo Kenyatta',country:'Kenya',flag:'🇰🇪'},
+  {iata:'MBA',city:'Mombasa',name:'Moi',country:'Kenya',flag:'🇰🇪'},
+  {iata:'ADD',city:'Addis Abeba',name:'Bole',country:'Etiopia',flag:'🇪🇹'},
+  {iata:'DAR',city:'Dar es Salaam',name:'Julius Nyerere',country:'Tanzania',flag:'🇹🇿'},
+  {iata:'ZNZ',city:'Zanzibar',name:'Abeid Amani Karume',country:'Tanzania',flag:'🇹🇿'},
+  {iata:'JRO',city:'Kilimanjaro',name:'Kilimanjaro',country:'Tanzania',flag:'🇹🇿'},
+  {iata:'EBB',city:'Kampala',name:'Entebbe',country:'Uganda',flag:'🇺🇬'},
+  {iata:'KGL',city:'Kigali',name:'Kigali',country:'Ruanda',flag:'🇷🇼'},
+  {iata:'JIB',city:'Gibuti',name:'Ambouli',country:'Gibuti',flag:'🇩🇯'},
+  {iata:'MGQ',city:'Mogadiscio',name:'Aden Adde',country:'Somalia',flag:'🇸🇴'},
+  {iata:'JNB',city:'Johannesburg',name:'OR Tambo',country:'Sudafrica',flag:'🇿🇦'},
+  {iata:'CPT',city:'Città del Capo',name:'Cape Town',country:'Sudafrica',flag:'🇿🇦'},
+  {iata:'DUR',city:'Durban',name:'King Shaka',country:'Sudafrica',flag:'🇿🇦'},
+  {iata:'HRE',city:'Harare',name:'Robert Gabriel Mugabe',country:'Zimbabwe',flag:'🇿🇼'},
+  {iata:'LUN',city:'Lusaka',name:'Kenneth Kaunda',country:'Zambia',flag:'🇿🇲'},
+  {iata:'MPM',city:'Maputo',name:'Maputo',country:'Mozambico',flag:'🇲🇿'},
+  {iata:'TNR',city:'Antananarivo',name:'Ivato',country:'Madagascar',flag:'🇲🇬'},
+  {iata:'SEZ',city:'Mahé',name:'Seychelles',country:'Seychelles',flag:'🇸🇨'},
+  {iata:'MRU',city:'Port Louis',name:'Sir Seewoosagur Ramgoolam',country:'Mauritius',flag:'🇲🇺'},
+  {iata:'RUN',city:'Saint-Denis',name:'Roland Garros',country:'Réunion',flag:'🇷🇪'},
+  {iata:'LFW',city:'Lomé',name:'Gnassingbé Eyadéma',country:'Togo',flag:'🇹🇬'},
+  {iata:'COO',city:'Cotonou',name:'Cadjehoun',country:'Benin',flag:'🇧🇯'},
+  {iata:'BKO',city:'Bamako',name:'Modibo Keita',country:'Mali',flag:'🇲🇱'},
+  {iata:'OUA',city:'Ouagadougou',name:'Ouagadougou',country:'Burkina Faso',flag:'🇧🇫'},
+  {iata:'NIM',city:'Niamey',name:'Diori Hamani',country:'Niger',flag:'🇳🇪'},
+  {iata:'NDJ',city:'N\'Djamena',name:'Hassan Djamous',country:'Ciad',flag:'🇹🇩'},
+  {iata:'BGF',city:'Bangui',name:'M\'Poko',country:'Rep. Centrafricana',flag:'🇨🇫'},
+  {iata:'LBV',city:'Libreville',name:'Leon M\'ba',country:'Gabon',flag:'🇬🇦'},
+  {iata:'DLA',city:'Douala',name:'Douala',country:'Camerun',flag:'🇨🇲'},
+  {iata:'YAO',city:'Yaoundé',name:'Nsimalen',country:'Camerun',flag:'🇨🇲'},
+  {iata:'SSG',city:'Malabo',name:'Santa Isabel',country:'Guinea Equatoriale',flag:'🇬🇶'},
+  {iata:'STP',city:'São Tomé',name:'São Tomé',country:'São Tomé',flag:'🇸🇹'},
+  {iata:'FIH',city:'Kinshasa',name:'N\'Djili',country:'Congo RDC',flag:'🇨🇩'},
+  {iata:'BZV',city:'Brazzaville',name:'Maya-Maya',country:'Congo',flag:'🇨🇬'},
+  {iata:'LAD',city:'Luanda',name:'Quatro de Fevereiro',country:'Angola',flag:'🇦🇴'},
+  {iata:'WDH',city:'Windhoek',name:'Hosea Kutako',country:'Namibia',flag:'🇳🇦'},
+  {iata:'GBE',city:'Gaborone',name:'Sir Seretse Khama',country:'Botswana',flag:'🇧🇼'},
+  {iata:'MTS',city:'Manzini',name:'King Mswati III',country:'Eswatini',flag:'🇸🇿'},
+  {iata:'MSU',city:'Maseru',name:'Moshoeshoe I',country:'Lesotho',flag:'🇱🇸'},
+  {iata:'ABV',city:'Abuja',name:'Nnamdi Azikiwe',country:'Nigeria',flag:'🇳🇬'},
+  {iata:'FNA',city:'Freetown',name:'Lungi',country:'Sierra Leone',flag:'🇸🇱'},
+  {iata:'ROB',city:'Monrovia',name:'Roberts',country:'Liberia',flag:'🇱🇷'},
+  {iata:'OXB',city:'Bissau',name:'Osvaldo Vieira',country:'Guinea-Bissau',flag:'🇬🇼'},
+  {iata:'CKY',city:'Conakry',name:'Gbessia',country:'Guinea',flag:'🇬🇳'},
+  {iata:'RAI',city:'Praia',name:'Nelson Mandela',country:'Capo Verde',flag:'🇨🇻'},
+  {iata:'SID',city:'Mindelo',name:'Amilcar Cabral',country:'Capo Verde',flag:'🇨🇻'},
+  // ASIA
+  {iata:'NRT',city:'Tokyo',name:'Narita',country:'Giappone',flag:'🇯🇵'},
+  {iata:'HND',city:'Tokyo',name:'Haneda',country:'Giappone',flag:'🇯🇵'},
+  {iata:'KIX',city:'Osaka',name:'Kansai',country:'Giappone',flag:'🇯🇵'},
+  {iata:'ITM',city:'Osaka',name:'Itami',country:'Giappone',flag:'🇯🇵'},
+  {iata:'NGO',city:'Nagoya',name:'Chubu Centrair',country:'Giappone',flag:'🇯🇵'},
+  {iata:'FUK',city:'Fukuoka',name:'Fukuoka',country:'Giappone',flag:'🇯🇵'},
+  {iata:'SPK',city:'Sapporo',name:'New Chitose',country:'Giappone',flag:'🇯🇵'},
+  {iata:'OKA',city:'Okinawa',name:'Naha',country:'Giappone',flag:'🇯🇵'},
+  {iata:'ICN',city:'Seoul',name:'Incheon',country:'Corea del Sud',flag:'🇰🇷'},
+  {iata:'GMP',city:'Seoul',name:'Gimpo',country:'Corea del Sud',flag:'🇰🇷'},
+  {iata:'PUS',city:'Busan',name:'Gimhae',country:'Corea del Sud',flag:'🇰🇷'},
+  {iata:'PEK',city:'Pechino',name:'Capital',country:'Cina',flag:'🇨🇳'},
+  {iata:'PKX',city:'Pechino',name:'Daxing',country:'Cina',flag:'🇨🇳'},
+  {iata:'PVG',city:'Shanghai',name:'Pudong',country:'Cina',flag:'🇨🇳'},
+  {iata:'SHA',city:'Shanghai',name:'Hongqiao',country:'Cina',flag:'🇨🇳'},
+  {iata:'CAN',city:'Guangzhou',name:'Baiyun',country:'Cina',flag:'🇨🇳'},
+  {iata:'CTU',city:'Chengdu',name:'Shuangliu',country:'Cina',flag:'🇨🇳'},
+  {iata:'SZX',city:'Shenzhen',name:'Bao\'an',country:'Cina',flag:'🇨🇳'},
+  {iata:'KMG',city:'Kunming',name:'Changshui',country:'Cina',flag:'🇨🇳'},
+  {iata:'XIY',city:'Xi\'an',name:'Xianyang',country:'Cina',flag:'🇨🇳'},
+  {iata:'WUH',city:'Wuhan',name:'Tianhe',country:'Cina',flag:'🇨🇳'},
+  {iata:'HGH',city:'Hangzhou',name:'Xiaoshan',country:'Cina',flag:'🇨🇳'},
+  {iata:'CKG',city:'Chongqing',name:'Jiangbei',country:'Cina',flag:'🇨🇳'},
+  {iata:'CSX',city:'Changsha',name:'Huanghua',country:'Cina',flag:'🇨🇳'},
+  {iata:'HKG',city:'Hong Kong',name:'Chek Lap Kok',country:'Hong Kong',flag:'🇭🇰'},
+  {iata:'MFM',city:'Macao',name:'Macao',country:'Macao',flag:'🇲🇴'},
+  {iata:'TPE',city:'Taipei',name:'Taoyuan',country:'Taiwan',flag:'🇹🇼'},
+  {iata:'TSA',city:'Taipei',name:'Songshan',country:'Taiwan',flag:'🇹🇼'},
+  {iata:'KHH',city:'Kaohsiung',name:'Kaohsiung',country:'Taiwan',flag:'🇹🇼'},
+  {iata:'SIN',city:'Singapore',name:'Changi',country:'Singapore',flag:'🇸🇬'},
+  {iata:'KUL',city:'Kuala Lumpur',name:'KLIA',country:'Malaysia',flag:'🇲🇾'},
+  {iata:'BKI',city:'Kota Kinabalu',name:'Kota Kinabalu',country:'Malaysia',flag:'🇲🇾'},
+  {iata:'PEN',city:'Penang',name:'Penang',country:'Malaysia',flag:'🇲🇾'},
+  {iata:'BKK',city:'Bangkok',name:'Suvarnabhumi',country:'Tailandia',flag:'🇹🇭'},
+  {iata:'DMK',city:'Bangkok',name:'Don Mueang',country:'Tailandia',flag:'🇹🇭'},
+  {iata:'HKT',city:'Phuket',name:'Phuket',country:'Tailandia',flag:'🇹🇭'},
+  {iata:'CNX',city:'Chiang Mai',name:'Chiang Mai',country:'Tailandia',flag:'🇹🇭'},
+  {iata:'USM',city:'Koh Samui',name:'Samui',country:'Tailandia',flag:'🇹🇭'},
+  {iata:'CGK',city:'Giacarta',name:'Soekarno-Hatta',country:'Indonesia',flag:'🇮🇩'},
+  {iata:'DPS',city:'Bali',name:'Ngurah Rai',country:'Indonesia',flag:'🇮🇩'},
+  {iata:'SUB',city:'Surabaya',name:'Juanda',country:'Indonesia',flag:'🇮🇩'},
+  {iata:'MDC',city:'Manado',name:'Sam Ratulangi',country:'Indonesia',flag:'🇮🇩'},
+  {iata:'UPG',city:'Makassar',name:'Sultan Hasanuddin',country:'Indonesia',flag:'🇮🇩'},
+  {iata:'MNL',city:'Manila',name:'Ninoy Aquino',country:'Filippine',flag:'🇵🇭'},
+  {iata:'CEB',city:'Cebu',name:'Mactan-Cebu',country:'Filippine',flag:'🇵🇭'},
+  {iata:'HAN',city:'Hanoi',name:'Noi Bai',country:'Vietnam',flag:'🇻🇳'},
+  {iata:'SGN',city:'Ho Chi Minh',name:'Tan Son Nhat',country:'Vietnam',flag:'🇻🇳'},
+  {iata:'DAD',city:'Da Nang',name:'Da Nang',country:'Vietnam',flag:'🇻🇳'},
+  {iata:'PNH',city:'Phnom Penh',name:'Pochentong',country:'Cambogia',flag:'🇰🇭'},
+  {iata:'REP',city:'Siem Reap',name:'Siem Reap',country:'Cambogia',flag:'🇰🇭'},
+  {iata:'VTE',city:'Vientiane',name:'Wattay',country:'Laos',flag:'🇱🇦'},
+  {iata:'RGN',city:'Yangon',name:'Hanthawaddy',country:'Myanmar',flag:'🇲🇲'},
+  {iata:'DAC',city:'Dacca',name:'Hazrat Shahjalal',country:'Bangladesh',flag:'🇧🇩'},
+  {iata:'CCU',city:'Calcutta',name:'Netaji Subhas Chandra Bose',country:'India',flag:'🇮🇳'},
+  {iata:'DEL',city:'Delhi',name:'Indira Gandhi',country:'India',flag:'🇮🇳'},
+  {iata:'BOM',city:'Mumbai',name:'Chhatrapati Shivaji',country:'India',flag:'🇮🇳'},
+  {iata:'MAA',city:'Chennai',name:'Chennai',country:'India',flag:'🇮🇳'},
+  {iata:'BLR',city:'Bangalore',name:'Kempegowda',country:'India',flag:'🇮🇳'},
+  {iata:'HYD',city:'Hyderabad',name:'Rajiv Gandhi',country:'India',flag:'🇮🇳'},
+  {iata:'COK',city:'Kochi',name:'Cochin',country:'India',flag:'🇮🇳'},
+  {iata:'AMD',city:'Ahmedabad',name:'Sardar Vallabhbhai Patel',country:'India',flag:'🇮🇳'},
+  {iata:'GOI',city:'Goa',name:'Dabolim',country:'India',flag:'🇮🇳'},
+  {iata:'PNQ',city:'Pune',name:'Pune',country:'India',flag:'🇮🇳'},
+  {iata:'JAI',city:'Jaipur',name:'Sanganeer',country:'India',flag:'🇮🇳'},
+  {iata:'CMB',city:'Colombo',name:'Bandaranaike',country:'Sri Lanka',flag:'🇱🇰'},
+  {iata:'KTM',city:'Kathmandu',name:'Tribhuvan',country:'Nepal',flag:'🇳🇵'},
+  {iata:'ISB',city:'Islamabad',name:'New Islamabad',country:'Pakistan',flag:'🇵🇰'},
+  {iata:'KHI',city:'Karachi',name:'Jinnah',country:'Pakistan',flag:'🇵🇰'},
+  {iata:'LHE',city:'Lahore',name:'Allama Iqbal',country:'Pakistan',flag:'🇵🇰'},
+  {iata:'KBL',city:'Kabul',name:'Hamid Karzai',country:'Afghanistan',flag:'🇦🇫'},
+  {iata:'MLE',city:'Malé',name:'Velana Intl',country:'Maldive',flag:'🇲🇻'},
+  {iata:'ULN',city:'Ulaanbaatar',name:'Chinggis Khaan',country:'Mongolia',flag:'🇲🇳'},
+  {iata:'TAS',city:'Tashkent',name:'Islam Karimov',country:'Uzbekistan',flag:'🇺🇿'},
+  {iata:'ALA',city:'Almaty',name:'Almaty',country:'Kazakistan',flag:'🇰🇿'},
+  {iata:'NQZ',city:'Astana',name:'Nursultan Nazarbayev',country:'Kazakistan',flag:'🇰🇿'},
+  {iata:'FRU',city:'Bishkek',name:'Manas',country:'Kirghizistan',flag:'🇰🇬'},
+  {iata:'ASB',city:'Ashgabat',name:'Ashgabat',country:'Turkmenistan',flag:'🇹🇲'},
+  {iata:'DYU',city:'Dushanbe',name:'Dushanbe',country:'Tagikistan',flag:'🇹🇯'},
+  // OCEANIA
+  {iata:'SYD',city:'Sydney',name:'Kingsford Smith',country:'Australia',flag:'🇦🇺'},
+  {iata:'MEL',city:'Melbourne',name:'Tullamarine',country:'Australia',flag:'🇦🇺'},
+  {iata:'BNE',city:'Brisbane',name:'Brisbane',country:'Australia',flag:'🇦🇺'},
+  {iata:'PER',city:'Perth',name:'Perth',country:'Australia',flag:'🇦🇺'},
+  {iata:'ADL',city:'Adelaide',name:'Adelaide',country:'Australia',flag:'🇦🇺'},
+  {iata:'CBR',city:'Canberra',name:'Canberra',country:'Australia',flag:'🇦🇺'},
+  {iata:'DRW',city:'Darwin',name:'Darwin',country:'Australia',flag:'🇦🇺'},
+  {iata:'CNS',city:'Cairns',name:'Cairns',country:'Australia',flag:'🇦🇺'},
+  {iata:'OOL',city:'Gold Coast',name:'Coolangatta',country:'Australia',flag:'🇦🇺'},
+  {iata:'AKL',city:'Auckland',name:'Auckland',country:'Nuova Zelanda',flag:'🇳🇿'},
+  {iata:'CHC',city:'Christchurch',name:'Christchurch',country:'Nuova Zelanda',flag:'🇳🇿'},
+  {iata:'WLG',city:'Wellington',name:'Wellington',country:'Nuova Zelanda',flag:'🇳🇿'},
+  {iata:'NAN',city:'Nadi',name:'Nadi',country:'Fiji',flag:'🇫🇯'},
+  {iata:'PPT',city:'Papeete',name:'Faa\'a',country:'Polinesia Francese',flag:'🇵🇫'},
+  {iata:'HNL',city:'Honolulu',name:'Daniel K. Inouye',country:'Hawaii (USA)',flag:'🇺🇸'},
+  {iata:'GUM',city:'Guam',name:'A.B. Won Pat',country:'Guam',flag:'🇬🇺'},
+  // AMERICHE - USA
+  {iata:'JFK',city:'New York',name:'John F. Kennedy',country:'USA',flag:'🇺🇸'},
+  {iata:'LGA',city:'New York',name:'LaGuardia',country:'USA',flag:'🇺🇸'},
+  {iata:'EWR',city:'New York',name:'Newark',country:'USA',flag:'🇺🇸'},
+  {iata:'LAX',city:'Los Angeles',name:'Los Angeles Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'MIA',city:'Miami',name:'Miami Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'FLL',city:'Fort Lauderdale',name:'Hollywood',country:'USA',flag:'🇺🇸'},
+  {iata:'ORD',city:'Chicago',name:'O\'Hare',country:'USA',flag:'🇺🇸'},
+  {iata:'MDW',city:'Chicago',name:'Midway',country:'USA',flag:'🇺🇸'},
+  {iata:'ATL',city:'Atlanta',name:'Hartsfield-Jackson',country:'USA',flag:'🇺🇸'},
+  {iata:'DFW',city:'Dallas',name:'Fort Worth',country:'USA',flag:'🇺🇸'},
+  {iata:'SFO',city:'San Francisco',name:'San Francisco Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'LAS',city:'Las Vegas',name:'Harry Reid',country:'USA',flag:'🇺🇸'},
+  {iata:'SEA',city:'Seattle',name:'Sea-Tac',country:'USA',flag:'🇺🇸'},
+  {iata:'BOS',city:'Boston',name:'Logan',country:'USA',flag:'🇺🇸'},
+  {iata:'DEN',city:'Denver',name:'Denver Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'IAD',city:'Washington',name:'Dulles',country:'USA',flag:'🇺🇸'},
+  {iata:'DCA',city:'Washington',name:'Reagan National',country:'USA',flag:'🇺🇸'},
+  {iata:'PHX',city:'Phoenix',name:'Sky Harbor',country:'USA',flag:'🇺🇸'},
+  {iata:'MSP',city:'Minneapolis',name:'Saint Paul',country:'USA',flag:'🇺🇸'},
+  {iata:'DTW',city:'Detroit',name:'Metropolitan Wayne County',country:'USA',flag:'🇺🇸'},
+  {iata:'CLT',city:'Charlotte',name:'Douglas',country:'USA',flag:'🇺🇸'},
+  {iata:'IAH',city:'Houston',name:'George Bush',country:'USA',flag:'🇺🇸'},
+  {iata:'HOU',city:'Houston',name:'Hobby',country:'USA',flag:'🇺🇸'},
+  {iata:'MCO',city:'Orlando',name:'Orlando Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'TPA',city:'Tampa',name:'Tampa Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'PHL',city:'Philadelphia',name:'Philadelphia Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'BWI',city:'Baltimora',name:'Thurgood Marshall',country:'USA',flag:'🇺🇸'},
+  {iata:'SAN',city:'San Diego',name:'San Diego Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'PDX',city:'Portland',name:'Portland Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'SLC',city:'Salt Lake City',name:'SLC Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'OAK',city:'Oakland',name:'Oakland Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'SJC',city:'San Jose',name:'Norman Y. Mineta',country:'USA',flag:'🇺🇸'},
+  {iata:'AUS',city:'Austin',name:'Bergstrom',country:'USA',flag:'🇺🇸'},
+  {iata:'MSY',city:'New Orleans',name:'Louis Armstrong',country:'USA',flag:'🇺🇸'},
+  {iata:'MCI',city:'Kansas City',name:'Kansas City Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'PIT',city:'Pittsburgh',name:'Pittsburgh Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'CVG',city:'Cincinnati',name:'Northern Kentucky',country:'USA',flag:'🇺🇸'},
+  {iata:'RDU',city:'Raleigh',name:'Durham',country:'USA',flag:'🇺🇸'},
+  {iata:'BNA',city:'Nashville',name:'Nashville Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'STL',city:'St. Louis',name:'Lambert',country:'USA',flag:'🇺🇸'},
+  {iata:'MEM',city:'Memphis',name:'Memphis Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'CLE',city:'Cleveland',name:'Hopkins',country:'USA',flag:'🇺🇸'},
+  {iata:'IND',city:'Indianapolis',name:'Indianapolis Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'JAX',city:'Jacksonville',name:'Jacksonville Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'OMA',city:'Omaha',name:'Eppley',country:'USA',flag:'🇺🇸'},
+  {iata:'RSW',city:'Fort Myers',name:'Southwest Florida',country:'USA',flag:'🇺🇸'},
+  {iata:'SMF',city:'Sacramento',name:'Sacramento Intl',country:'USA',flag:'🇺🇸'},
+  {iata:'BUF',city:'Buffalo',name:'Niagara',country:'USA',flag:'🇺🇸'},
+  {iata:'ABQ',city:'Albuquerque',name:'Sunport',country:'USA',flag:'🇺🇸'},
+  // CANADA
+  {iata:'YYZ',city:'Toronto',name:'Pearson',country:'Canada',flag:'🇨🇦'},
+  {iata:'YUL',city:'Montréal',name:'Trudeau',country:'Canada',flag:'🇨🇦'},
+  {iata:'YVR',city:'Vancouver',name:'Vancouver Intl',country:'Canada',flag:'🇨🇦'},
+  {iata:'YYC',city:'Calgary',name:'Calgary Intl',country:'Canada',flag:'🇨🇦'},
+  {iata:'YOW',city:'Ottawa',name:'Macdonald-Cartier',country:'Canada',flag:'🇨🇦'},
+  {iata:'YEG',city:'Edmonton',name:'Edmonton Intl',country:'Canada',flag:'🇨🇦'},
+  {iata:'YWG',city:'Winnipeg',name:'Richardson',country:'Canada',flag:'🇨🇦'},
+  {iata:'YHZ',city:'Halifax',name:'Stanfield',country:'Canada',flag:'🇨🇦'},
+  {iata:'YQB',city:'Québec',name:'Jean Lesage',country:'Canada',flag:'🇨🇦'},
+  // MESSICO E CARAIBI
+  {iata:'MEX',city:'Città del Messico',name:'Benito Juárez',country:'Messico',flag:'🇲🇽'},
+  {iata:'CUN',city:'Cancún',name:'Cancún Intl',country:'Messico',flag:'🇲🇽'},
+  {iata:'GDL',city:'Guadalajara',name:'Miguel Hidalgo',country:'Messico',flag:'🇲🇽'},
+  {iata:'MTY',city:'Monterrey',name:'Mariano Escobedo',country:'Messico',flag:'🇲🇽'},
+  {iata:'PVR',city:'Puerto Vallarta',name:'Licenciado Gustavo Díaz Ordaz',country:'Messico',flag:'🇲🇽'},
+  {iata:'SJD',city:'Los Cabos',name:'Los Cabos',country:'Messico',flag:'🇲🇽'},
+  {iata:'MZT',city:'Mazatlan',name:'Rafael Buelna',country:'Messico',flag:'🇲🇽'},
+  {iata:'HUX',city:'Huatulco',name:'Huatulco',country:'Messico',flag:'🇲🇽'},
+  {iata:'MID',city:'Mérida',name:'Manuel Crescencio Rejón',country:'Messico',flag:'🇲🇽'},
+  {iata:'HAV',city:'L\'Avana',name:'José Martí',country:'Cuba',flag:'🇨🇺'},
+  {iata:'VRA',city:'Varadero',name:'Juan Gualberto Gómez',country:'Cuba',flag:'🇨🇺'},
+  {iata:'SDQ',city:'Santo Domingo',name:'Las Américas',country:'Rep. Dominicana',flag:'🇩🇴'},
+  {iata:'PUJ',city:'Punta Cana',name:'Punta Cana',country:'Rep. Dominicana',flag:'🇩🇴'},
+  {iata:'SJO',city:'San José',name:'Juan Santamaría',country:'Costa Rica',flag:'🇨🇷'},
+  {iata:'GUA',city:'Guatemala City',name:'La Aurora',country:'Guatemala',flag:'🇬🇹'},
+  {iata:'SAL',city:'San Salvador',name:'Monseñor Óscar Romero',country:'El Salvador',flag:'🇸🇻'},
+  {iata:'TGU',city:'Tegucigalpa',name:'Toncontín',country:'Honduras',flag:'🇭🇳'},
+  {iata:'MGA',city:'Managua',name:'Augusto Sandino',country:'Nicaragua',flag:'🇳🇮'},
+  {iata:'PTY',city:'Panama City',name:'Tocumen',country:'Panama',flag:'🇵🇦'},
+  {iata:'KIN',city:'Kingston',name:'Norman Manley',country:'Giamaica',flag:'🇯🇲'},
+  {iata:'MBJ',city:'Montego Bay',name:'Sangster',country:'Giamaica',flag:'🇯🇲'},
+  {iata:'NAS',city:'Nassau',name:'Lynden Pindling',country:'Bahamas',flag:'🇧🇸'},
+  {iata:'BGI',city:'Bridgetown',name:'Grantley Adams',country:'Barbados',flag:'🇧🇧'},
+  {iata:'POS',city:'Port of Spain',name:'Piarco',country:'Trinidad e Tobago',flag:'🇹🇹'},
+  {iata:'GEO',city:'Georgetown',name:'Cheddi Jagan',country:'Guyana',flag:'🇬🇾'},
+  {iata:'PBM',city:'Paramaribo',name:'Johan Adolf Pengel',country:'Suriname',flag:'🇸🇷'},
+  {iata:'ANU',city:'Antigua',name:'V.C. Bird',country:'Antigua',flag:'🇦🇬'},
+  {iata:'SXM',city:'Sint Maarten',name:'Princess Juliana',country:'Sint Maarten',flag:'🇸🇽'},
+  {iata:'UVF',city:'Saint Lucia',name:'Hewanorra',country:'Saint Lucia',flag:'🇱🇨'},
+  {iata:'SVD',city:'Kingstown',name:'ET Joshua',country:'Saint Vincent',flag:'🇻🇨'},
+  {iata:'GND',city:'Grenada',name:'Maurice Bishop',country:'Grenada',flag:'🇬🇩'},
+  {iata:'SKB',city:'Basseterre',name:'Robert L. Bradshaw',country:'Saint Kitts',flag:'🇰🇳'},
+  // AMERICA DEL SUD
+  {iata:'GRU',city:'São Paulo',name:'Guarulhos',country:'Brasile',flag:'🇧🇷'},
+  {iata:'CGH',city:'São Paulo',name:'Congonhas',country:'Brasile',flag:'🇧🇷'},
+  {iata:'GIG',city:'Rio de Janeiro',name:'Galeão',country:'Brasile',flag:'🇧🇷'},
+  {iata:'SDU',city:'Rio de Janeiro',name:'Santos Dumont',country:'Brasile',flag:'🇧🇷'},
+  {iata:'BSB',city:'Brasilia',name:'Juscelino Kubitschek',country:'Brasile',flag:'🇧🇷'},
+  {iata:'SSA',city:'Salvador',name:'Deputado Luís Eduardo Magalhães',country:'Brasile',flag:'🇧🇷'},
+  {iata:'FOR',city:'Fortaleza',name:'Pinto Martins',country:'Brasile',flag:'🇧🇷'},
+  {iata:'BEL',city:'Belém',name:'Val de Cans',country:'Brasile',flag:'🇧🇷'},
+  {iata:'MAO',city:'Manaus',name:'Eduardo Gomes',country:'Brasile',flag:'🇧🇷'},
+  {iata:'REC',city:'Recife',name:'Guararapes',country:'Brasile',flag:'🇧🇷'},
+  {iata:'POA',city:'Porto Alegre',name:'Salgado Filho',country:'Brasile',flag:'🇧🇷'},
+  {iata:'CWB',city:'Curitiba',name:'Afonso Pena',country:'Brasile',flag:'🇧🇷'},
+  {iata:'EZE',city:'Buenos Aires',name:'Ezeiza Ministro Pistarini',country:'Argentina',flag:'🇦🇷'},
+  {iata:'AEP',city:'Buenos Aires',name:'Aeroparque Jorge Newbery',country:'Argentina',flag:'🇦🇷'},
+  {iata:'COR',city:'Córdoba',name:'Ingeniero Ambrosio Taravella',country:'Argentina',flag:'🇦🇷'},
+  {iata:'MDZ',city:'Mendoza',name:'El Plumerillo',country:'Argentina',flag:'🇦🇷'},
+  {iata:'BRC',city:'Bariloche',name:'Teniente Luis Candelaria',country:'Argentina',flag:'🇦🇷'},
+  {iata:'USH',city:'Ushuaia',name:'Malvinas Argentinas',country:'Argentina',flag:'🇦🇷'},
+  {iata:'SCL',city:'Santiago',name:'Arturo Merino Benítez',country:'Cile',flag:'🇨🇱'},
+  {iata:'PMC',city:'Puerto Montt',name:'El Tepual',country:'Cile',flag:'🇨🇱'},
+  {iata:'IQQ',city:'Iquique',name:'Diego Aracena',country:'Cile',flag:'🇨🇱'},
+  {iata:'LIM',city:'Lima',name:'Jorge Chávez',country:'Perù',flag:'🇵🇪'},
+  {iata:'CUZ',city:'Cusco',name:'Alejandro Velasco Astete',country:'Perù',flag:'🇵🇪'},
+  {iata:'BOG',city:'Bogotà',name:'El Dorado',country:'Colombia',flag:'🇨🇴'},
+  {iata:'MDE',city:'Medellín',name:'José María Córdova',country:'Colombia',flag:'🇨🇴'},
+  {iata:'CLO',city:'Cali',name:'Alfonso Bonilla Aragón',country:'Colombia',flag:'🇨🇴'},
+  {iata:'CTG',city:'Cartagena',name:'Rafael Núñez',country:'Colombia',flag:'🇨🇴'},
+  {iata:'CCS',city:'Caracas',name:'Simón Bolívar',country:'Venezuela',flag:'🇻🇪'},
+  {iata:'MAR',city:'Maracaibo',name:'La Chinita',country:'Venezuela',flag:'🇻🇪'},
+  {iata:'UIO',city:'Quito',name:'Mariscal Sucre',country:'Ecuador',flag:'🇪🇨'},
+  {iata:'GYE',city:'Guayaquil',name:'José Joaquín de Olmedo',country:'Ecuador',flag:'🇪🇨'},
+  {iata:'LPB',city:'La Paz',name:'El Alto',country:'Bolivia',flag:'🇧🇴'},
+  {iata:'VVI',city:'Santa Cruz',name:'Viru Viru',country:'Bolivia',flag:'🇧🇴'},
+  {iata:'ASU',city:'Asunción',name:'Silvio Pettirossi',country:'Paraguay',flag:'🇵🇾'},
+  {iata:'MVD',city:'Montevideo',name:'Carrasco',country:'Uruguay',flag:'🇺🇾'},
 ];
 
 function acSearch(input,dropId){
@@ -1368,7 +1585,7 @@ function acSearch(input,dropId){
   drop.innerHTML=res.map(a=>`
     <div class="ac-item" onclick="acSelect('${input.id}','${dropId}','${a.iata}','${a.city}','${a.name}')">
       <div class="ac-flag">${a.flag}</div>
-      <div       <div class="ac-iata">${a.iata}</div>
+      <div class="ac-iata">${a.iata}</div>
       <div class="ac-info">
         <div class="ac-city">${a.city} — ${a.name}</div>
         <div class="ac-country">${a.country}</div>
