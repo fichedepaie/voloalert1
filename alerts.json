@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1772764370318,
+    "o": "Bologna (BLQ)",
+    "d": "Roma (FCO)",
+    "dep": "2026-03-13",
+    "ret": null,
+    "tripType": "ow",
+    "maxPrice": 500,
+    "cur": "EUR",
+    "email": "",
+    "phone": "",
+    "note": "",
+    "direct": true,
+    "escale": true,
+    "cabin": "Economy",
+    "pax": "1 adulto",
+    "createdAt": "06/03/2026, 03:32:50",
+    "active": true
+  }
+]
